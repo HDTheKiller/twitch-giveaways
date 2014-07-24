@@ -1,0 +1,46 @@
+@import '_variables.styl'
+
+@import 'module/mixins.styl'
+@import 'module/fonts.styl'
+@import 'module/normalize.styl'
+@import 'module/animations.styl'
+@import 'module/helpers.styl'
+@import 'module/card.styl'
+@import 'module/icons.styl'
+@import 'module/form.styl'
+@import 'module/buttons.styl'
+
+@import 'vendor/*.styl'
+
+@import 'component/*.styl'
+@import 'section/*.styl'
+@import 'tga.styl'
+
+// twitch chat
+.ember-chat-container
+	position: relative
+	z-index: 2
+	transition: margin tga.transition.duration tga.transition.easing
+	box-shadow: -1px 0 0 black(.25)
+
+	{namespace}.open ~ &
+		margin-left: tga.width
+
+// match selector specificity :/
+.ember-chat .chat-interface .chat-buttons-container
+
+	.send-chat-button
+		left: 110px
+
+	.chat-option-buttons
+
+		.tga-button
+
+			&.disabled
+				color: colors.light
+				cursor: default
+
+			.tgi
+				display: block
+				margin: 4px 0
+				font-size: 20px

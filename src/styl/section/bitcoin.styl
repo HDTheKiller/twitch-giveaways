@@ -1,0 +1,21 @@
+{namespace} .section.bitcoin
+	overflow-y: auto
+	padding: spacing
+	text-align: center
+	background: scrollshadows
+
+	.qr
+		max-width: 300px
+		margin: 0 auto 1em
+		background: url('bitcoin.png') no-repeat center center
+		background-size: contain
+
+		&:before
+			display: block
+			content: ''
+			padding-bottom: 100%
+
+	.address
+		display: inline-block
+		padding: .5em .7em
+		background: colors.lightest

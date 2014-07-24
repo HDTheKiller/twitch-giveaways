@@ -1,0 +1,16 @@
+.tgi
+	font-family: '{{name}}'
+	speak: none
+	line-height: 1
+	font-style: normal
+	font-weight: normal
+	font-variant: normal
+	text-transform: none
+	vertical-align: middle
+
+	&:before
+		relative: top 1px
+{% for glyph in glyphs %}
+.tgi-{{glyph.name}}:before
+	content: '\{{glyph.character}}'
+{% endfor %}

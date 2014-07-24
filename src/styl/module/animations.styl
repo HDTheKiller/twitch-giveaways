@@ -1,0 +1,85 @@
+@keyframes spin
+	from
+		transform: rotate(0deg)
+	to
+		transform: rotate(360deg)
+
+@keyframes fadein
+	from
+		opacity: 0
+	to
+		opacity: 1
+
+@keyframes slideinleft
+	0%
+		opacity: 0
+		transform: translateX(50px)
+	100%
+		opacity: 1
+		transform: translateX(0)
+
+@keyframes slideinright
+	0%
+		opacity: 0
+		transform: translateX(-50px)
+	100%
+		opacity: 1
+		transform: translateX(0)
+
+@keyframes slideintop
+	0%
+		opacity: 0
+		transform: translateY(20px)
+	100%
+		opacity: 1
+		transform: translateY(0)
+
+@keyframes slideinbottom
+	0%
+		opacity: 0
+		transform: translateY(-20px)
+	100%
+		opacity: 1
+		transform: translateY(0)
+
+@keyframes pulsate
+	0%
+		transform: scale(.1)
+		opacity: .3
+	50%
+		opacity: .8
+	100%
+		transform: scale(1.2)
+		opacity: 0
+
+@keyframes rotatein
+	0%
+		opacity: 0
+		transform: rotateY(-360deg)
+	100%
+		opacity: 1
+		transform: rotateY(0)
+
+.fadein
+	opacity: 0
+	animation: fadein 200ms 1 ease-out forwards
+
+.slideinleft
+	opacity: 0
+	animation: slideinleft 200ms 1 ease-out forwards
+
+.slideinright
+	opacity: 0
+	animation: slideinright 200ms 1 ease-out forwards
+
+.slideintop
+	opacity: 0
+	animation: slideintop 200ms 1 ease-out forwards
+
+.slideinbottom
+	opacity: 0
+	animation: slideinbottom 200ms 1 ease-out forwards
+
+.rotatein
+	opacity: 0
+	animation: rotatein 200ms 1 ease-out forwards

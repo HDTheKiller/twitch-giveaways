@@ -1,0 +1,135 @@
+{namespace}
+	@extends $components
+
+	display: flex
+	align-items: stretch
+	absolute: top left bottom
+	left: -(tga.width / 3)
+	size: tga.width 100%
+	z-index: 1
+	background: colors.background
+	transition: left tga.transition.duration tga.transition.easing
+
+	&.open
+		left: 0
+
+	.bar
+		height: barSize
+		color: colors.dark
+
+	.viewers
+		display: flex
+		flex-flow: column
+		width: 180px
+		min-height: 200px
+
+		.bar
+			display: flex
+
+		.search
+			flex: 1
+			display: flex
+
+		input
+			flex: 1
+			height: barSize
+			color: colors.dark
+			border: 0
+			margin: 0
+			padding: 0 0 0 1em
+			font-size: 1.1em
+			background: transparent
+			outline: none
+
+		.cancel
+			display: flex
+			justify-content: center
+			align-items: center
+			size: 30px barSize
+			color: colors.light
+			font-size: 17px
+			cursor: pointer
+
+			&:hover
+				color: colors.danger
+
+		.count
+			display: flex
+			align-items: center
+			justify-content: center
+			min-width: 22px
+			padding: 0 12px
+			color: #fff
+			font-size: 18px
+			font-weight: bold
+			text-align: center
+			background: colors.dark
+			border-bottom: 1px solid colors.darker
+
+	.primary
+		flex: 1
+		display: flex
+		flex-flow: column
+		align-items: stretch
+
+		.bar
+			display: flex
+			justify-content: flex-end
+			align-items: center
+			padding: 0 0 0 1px
+
+			.button
+				position: relative
+				display: flex
+				justify-content: center
+				align-items: center
+				padding: 0 8px
+				min-width: 45px
+				height: 100%
+				color: colors.dark
+				border: 0
+				background: none
+				cursor: pointer
+				transition: background 100ms ease-out
+
+				&:hover
+					background: colors.lighter
+
+				&.active
+					color: colors.background
+					background: lighten(colors.primary, 15)
+
+				&.profile
+					flex-shrink: 1
+
+				.tgi
+					font-size: 24px
+
+				.label
+					flex-shrink: 1
+					display: inline-block
+					margin: 0 2px 0 5px
+					line-height: 24px
+					overflow: ellipsis
+
+				.new
+					size: 10px
+					relative: top 7px left 2px
+					margin-left: -@width
+					background: colors.success
+					border: 2px solid colors.background
+					border-radius: 50%
+
+					&:after
+						content: ''
+						size: 16px
+						absolute: left 50% top 50%
+						margin: (-@height / 2) 0 0 (-@width / 2)
+						border: 1px solid colors.success
+						border-radius: 50%
+						animation: pulsate 2s ease-out infinite
+
+	.section
+		flex: 1
+		position: relative
+		overflow-x: hidden

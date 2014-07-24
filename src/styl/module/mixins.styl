@@ -1,0 +1,143 @@
+/**
+ * Transforms an element into a custom size CSS spinner.
+ */
+spinner(szs = 2em, thickness = 2px, light = false, pos = relative)
+	position: pos
+	display: inline-block
+	size: szs
+
+	&:after
+		content: ''
+		display: block
+		size: 100%
+		border: thickness solid (light ? white(.1) : black(.1))
+		border-top-color: light ? white(.5) : black(.5)
+		border-radius: 100%
+		animation: spin 500ms infinite linear
+
+/**
+ * Background property extensions.
+ */
+background(args...)
+	if (args[0] == 'scrollshadows')
+		background: linear-gradient(white 30%, rgba(255,255,255,0)), linear-gradient(rgba(255,255,255,0), white 70%) 0 100%, radial-gradient(farthest-side at 50% 0, rgba(0,0,0,.1), rgba(0,0,0,0)), radial-gradient(farthest-side at 50% 100%, rgba(0,0,0,.1), rgba(0,0,0,0)) 0 100%
+		background-repeat: no-repeat
+		background-color: colors.background
+		background-size: 100% 20px, 100% 20px, 100% 5px, 100% 5px
+		background-attachment: local, local, scroll, scroll
+	else
+		background: args
+
+/**
+ * Position shorthands.
+ *
+ * Examples:
+ *   absolute: left top
+ *   fixed: top 20px right 20px left 20px bottom 20px
+ */
+positionTypes = top left right bottom
+-pos(type, args)
+	position: unquote(type)
+	i = 0
+	for arg in args
+		i += 1
+		if arg in positionTypes
+			{arg}: (i >= length(args) or args[i] in positionTypes) ? 0 : args[i]
+
+absolute(args...)
+	-pos('absolute', args)
+
+fixed(args...)
+	-pos('fixed', args)
+
+relative(args...)
+	-pos('relative', args)
+
+/**
+ * Special shorthands for overflow property.
+ *
+ * Examples:
+ *   overflow: auto
+ *   overflow: hidden
+ *   overflow: ellipsis
+ *   overflow: ellipsis left
+ */
+overflow(type, dir = 'right')
+	if type == ellipsis
+		white-space: nowrap
+		overflow: hidden
+		text-overflow: ellipsis
+		if dir == 'left'
+			direction: rtl
+			text-align: right
+	else
+		overflow: unquote(type)
+
+/**
+ * Enable breaking of long words.
+ */
+word-wrap()
+	word-break: break-word
+	hyphens: auto
+
+/**
+ * Size shorthand.
+ *
+ * Examples:
+ *   size: 100px      // square 100 x 100
+ *   size: 100px 60px // rectangle 100 x 60
+ */
+size(w, h = false)
+	width: w
+	height: h != false ? h : w
+
+/**
+ * Cover the parent element.
+ */
+cover()
+	absolute: top left
+	size: 100%
+
+/**
+ * Center element.
+ */
+center()
+	absolute: top 50% left 50%
+	transform: translate(-50%, -50%)
+
+/**
+ * Render a black color with optional opacity.
+ *
+ * Example:
+ *   background: black(.5)
+ */
+black(opacity = 1)
+	rgba(#000, opacity)
+
+/**
+ * Render a white color with optional opacity.
+ *
+ * Example:
+ *   background: white(.5)
+ */
+white(opacity = 1)
+	rgba(#fff, opacity)
+
+/**
+ * Clear fix.
+ *
+ * Example:
+ *   clear: fix
+ *   clear: both
+ */
+clear(type)
+	if type == 'fix'
+		&:before,
+		&:after
+			content: ' '
+			display: table
+
+		&:after
+			clear: both
+	else
+		clear: type

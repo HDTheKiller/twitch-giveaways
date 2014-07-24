@@ -1,0 +1,49 @@
+[
+	{
+		"question": "Where to report issues?",
+		"answer": [
+			"Ordered from the most to the least appropriate place:",
+			"<ol><li><a href=\"https://github.com/darsain/twitch-giveaways/issues\"><i class=\"tgi tgi-github\"></i> Twitch Giveaways issue tracker</a><br>If you don't have and don't want to have a Github account, choose some of the options below, but this is the most supported place to report issues.</li><li><a href=\"asfasfafsa\"><i class=\"tgi tgi-chrome\"></i> Chrome Webstore issues tracker</a><br> Has no notifications. I look at it a couple of times a week.</li><li><a href=\"http://twitch.tv/message/compose?to=darsain\"><i class=\"tgi tgi-twitch\"></i> Message on Twitch</a><br> Not appropriate, but it's an option :)</li><li><a href=\"https://twitter.com/darsain\"><i class=\"tgi tgi-twitter\"></i> Tweet @darsain</a><br> The worst. Not enough place to describe anything, and not guaranteed I'll read it.</li></ol>"
+		]
+	},
+	{
+		"question": "Who exactly am I rolling from?",
+		"answer": [
+			"You are always rolling from the list of people on the left, with the exception of those that are unchecked (i.e. not eligible to win).",
+			"If you have a search active, you are rolling only from the search results."
+		]
+	},
+	{
+		"question": "When are people unchecked?",
+		"answer": [
+			"People are unchecked (made not eligible to win) when:",
+			"<ul><li>You click on them in the list.</li><li>They spam keyword and <strong>Keyword antispam</strong> is enabled.</li><li>They've already won once and <strong>Uncheck winners</strong> is enabled.</li></ul>"
+		]
+	},
+	{
+		"question": "Can I display only unchecked people?",
+		"answer": [
+			"Yes. Write the exclamation mark \"<strong>!</strong>\" to the search bar to see only people that are not eligible to win."
+		]
+	},
+	{
+		"question": "Followers only filter?",
+		"answer": [
+			"Unfortunately, there is no way how to get the following status of each user without getting you banned from api.twitch.tv for making too many requests :(",
+			"If there was, it would already be in. Until that changes somehow (unlikely) you have to roll someone to see whether they are following you."
+		]
+	},
+	{
+		"question": "Why won't you load all people in chat without them having to talk?",
+		"answer": [
+			"Since the last chat update, there is no reasonable way how to retrieve the list of people in chat along with their group and subscriber status.",
+			"Besides, not many people were using this anyway, as rolling AFK lurkers is not fun :)"
+		]
+	},
+	{
+		"question": "Who is \"jtv\" and why is he in the Ignore list?",
+		"answer": [
+			"Jtv is a username of a Twitch bot that says \"<em>Welcome to the chat room!</em>\" among other things."
+		]
+	}
+]

@@ -1,0 +1,38 @@
+{namespace} .msg
+	display: flex
+	color: colors.grey
+	background: colors.lighter
+
+	.text
+		flex: 1
+		padding: .7em 1em
+
+	.close
+		display: flex
+		align-items: center
+		padding: 0 1em
+		opacity: .5
+		cursor: pointer
+
+		&:hover
+			opacity: 1
+
+	&.primary
+		color: colors.primaryDark
+		background: colors.primaryLight
+
+	&.success
+		color: colors.successDark
+		background: colors.successLight
+
+	&.info
+		color: colors.infoDark
+		background: colors.infoLight
+
+	&.warning
+		color: colors.warningDark
+		background: colors.warningLight
+
+	&.danger
+		color: colors.dangerDark
+		background: colors.dangerLight

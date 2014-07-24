@@ -1,0 +1,210 @@
+{namespace} .section.index
+	display: flex
+	flex-direction: column
+	align-items: stretch
+
+	.block
+		margin: spacing spacing 0
+
+	.rolltypes
+		display: flex
+		list-style: none
+		background: colors.dark
+		// removing twitch styles
+		border: 0
+		margin: 0
+
+		li
+			flex: 1
+			display: flex
+			justify-content: center
+			align-items: center
+			float: left
+			width: 50%
+			height: 3em
+			margin: 0
+			color: colors.background
+			text-align: center
+			border: 1px solid transparent
+			background: transparent
+			transition: background 100ms ease-out
+			cursor: pointer
+
+			&.active
+				color: colors.dark
+				background: padding-box colors.background
+
+	.keyword-input
+		display: flex
+		align-items: center
+		height: 35px
+		margin-top: (spacing / 2)
+		border: 1px solid colors.lighter
+
+		.word
+			flex: 1
+			height: @height
+			padding: 0 (@height / 3)
+			background: transparent
+			border: 0
+			outline: 0
+
+		.btn
+			size: @height - 4px
+			margin-right: 1px
+			padding: 0
+			color: colors.light
+			font-size: 1.4em
+			line-height: 1
+			background: transparent
+			border: 0
+
+			&:hover
+				color: #fff !important
+				background: colors.grey
+				border-color: colors.grey !important
+
+			&.clean
+				color: colors.warning
+				&:hover
+					background: colors.warning !important
+
+			&.cancel
+				color: colors.danger
+				&:hover
+					background: colors.danger !important
+
+		&.active
+			background: colors.successLight
+			border-color: colors.success
+			&,
+			& input
+				color: colors.success
+
+	.groups
+		buttonSpacing = 3px
+		display: flex
+		flex-flow: row wrap
+		justify-content: space-between
+		list-style: none
+		margin: (spacing - buttonSpacing) (spacing) (-(buttonSpacing))
+
+		.btn
+			justify-content: flex-start
+			min-width: 60px
+			margin: buttonSpacing 0
+			color: colors.grey
+			background: colors.lightest
+			border: 0
+
+			&:hover
+				color: colors.lighter
+				background: colors.grey
+
+			&.checked
+				color: colors.success
+				background: colors.successLight
+
+				&:hover
+					color: colors.successLight
+					background: colors.success
+
+			.tgi
+				margin-right: 5px
+				font-size: 1.2em
+
+		.subscribers-only
+			flex: 1
+
+	.actions
+		display: flex
+
+		.btn
+			min-height: 4em
+			margin-right: (spacing / 2)
+
+			&:last-child
+				margin-right: 0
+
+			&.reset
+				.eligible-icon
+					display: block
+					size 20px
+					padding: 2px
+					background: colors.info content-box
+					border: 2px solid colors.info
+					border-radius: 50%
+				&:hover .eligible-icon
+					background-color: colors.background
+					border-color: colors.background
+
+			&.roll
+				flex: 1
+				text-transform: uppercase
+				overflow: hidden
+
+				span
+					transition: transform 300ms ease-out, opacity 300ms ease-out, color 0 ease-out
+
+				.legend
+					transform: scale(1)
+					opacity: 1
+
+				.spinner
+					szs = 2em
+					spinner(szs, pos: absolute)
+					left: 50%
+					top: 50%
+					margin: (-(szs) / 2) 0 0 (-(szs) / 2)
+					transform: scale(2)
+					opacity: 0
+
+				&.loading
+					background: transparent
+					border-color: colors.light
+					border-style: dashed
+					cursor: default
+
+					.legend
+						transform: scale(.1)
+						opacity: 0
+
+					.spinner
+						transform: scale(1)
+						opacity: 1
+
+	.support
+		padding: 0 0 10px
+
+		.divider
+			font-size: .8em
+
+		.options
+			display: flex
+
+		a
+			flex: 1
+			display: flex
+			justify-content: center
+			align-items: center
+			height: 40px
+			margin: 0
+			font-size: 18px
+			text-decoration: none
+			transition: all 100ms ease-out
+
+		.tgi
+			margin: 0 5px 0 0
+			font-size: 30px
+
+		.bitcoin
+			color: lighten(colors.bitcoin, 20)
+			&:hover
+				color: colors.bitcoin
+				// background: colors.bitcoin
+
+		.paypal
+			color: colors.paypalLight
+			&:hover
+				color: colors.paypalDark
+				// background: colors.paypalDark

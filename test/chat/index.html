@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>TGA Test</title>
+		<link rel="stylesheet" href="twitch.css">
+		<link rel="stylesheet" href="emoticons.css">
+		<style>
+			/* subscriber badge is different for every channel, needs to be styles manually */
+			.chat-room .badge.subscriber { background: #d462d4; line-height: 18px; text-align: center; }
+			.chat-room .badge.subscriber:before { content: '\02605'; color: #fff; text-shadow: 1px 1px 0 rgba(0,0,0,.2); }
+		</style>
+	</head>
+	<body>
+		<div id="ember354" class="ember-view ember-chat-container">
+			<div id="ember397" class="ember-view ember-chat roomMode">
+				<div class="chat-header main-header">
+					<button data-ember-action="1" class="chat-menu-button-container left tooltip" title="View All Rooms">
+						<span class="back">
+							<svg class="svg-back" height="16px" version="1.1" viewBox="0 0 16 16" width="16px" x="0px" y="0px">
+								<path clip-rule="evenodd" d="M1,13v-2h14v2H1z M1,5h13v2H1V5z M1,2h10v2H1V2z M12,10H1V8h11V10z" fill-rule="evenodd"></path>
+							</svg>
+						</span>
+					</button>
+					<p class="room-title">test</p>
+				</div>
+
+				<div id="ember432" class="ember-view">
+					<div class="top-notification room-invitation" data-bindattr-2="2">
+						<span class="icon"></span>
+						<p class="invited">invited you to join</p>
+					</div>
+				</div>
+
+				<div class="chat-room-list chat-menu" data-bindattr-3="3">
+					<div class="chat-header all-rooms-header">
+						<p class="room-title">All Chat Rooms</p>
+						<button data-ember-action="4" class="chat-menu-button-container right tooltip" title="Create a Room">
+							<span class="create" data-bindattr-5="5">
+								<svg class="svg-create" height="16px" version="1.1" viewBox="0 0 16 16" width="16px" x="0px" y="0px">
+									<path clip-rule="evenodd" d="M15,9H9v6H7V9H1V7h6V1h2v6h6V9z" fill-rule="evenodd"></path>
+								</svg>
+							</span>
+						</button>
+					</div>
+					<div data-ember-action="6" class="mask"></div>
+					<div class="js-rooms scroll chat-rooms">
+						<div class="tse-scroll-content">
+							<div class="tse-content">
+								<div class="list-header"><p>Channel Chat</p></div>
+								<div data-ember-action="53" class="room">
+									<p class="room-title">test</p>
+									<div id="ember566" class="ember-view">
+										<span class="unread-count pop" data-bindattr-84="84">1</span>
+									</div>
+								</div>
+								<div class="list-header"><p>Group Chats</p> </div>
+								<p class="no-content">No group chats.</p>
+								<div class="list-header"><p>Pending Invitations</p></div>
+								<p class="no-content">No pending invitations.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="chat-room">
+					<div class="" data-bindattr-7="7">
+						<div id="ember463" class="ember-view">
+							<div class="scroll chat-messages js-chat-messages hideTimestamps hideModIcons" data-bindattr-8="8">
+								<div class="tse-scrollbar" style="display: none;">
+									<div class="drag-handle"></div>
+								</div>
+								<div class="tse-scroll-content">
+									<div class="tse-content">
+										<div id="ember598" class="ember-view chat-line admin">
+											<div class="indicator"></div>
+											<span class="timestamp">9:55</span>
+											<span class="badges"></span>
+											<span class="from" style="color:#0000FF">Jtv</span>
+											<span class="colon">:</span>
+											<span class="message" style="undefined">Welcome to the chat room!</span>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="chat-interface">
+								<div class="textarea-contain">
+									<textarea id="ember517" class="ember-view ember-text-area" placeholder="Send a message"></textarea>
+								</div>
+								<div class="chat-buttons-container">
+									<div class="chat-option-buttons">
+										<a data-ember-action="49" class="button glyph-only" title="Chat Settings">
+											<svg class="svg-gear" height="100%" version="1.1" viewBox="0 0 16 16" width="100%" x="0px" y="0px">
+												<path clip-rule="evenodd" d="M15,7v2h-2.115c-0.125,0.615-0.354,1.215-0.713,1.758l1.484,1.484l-1.414,1.414l-1.484-1.484C10.215,12.531,9.615,12.76,9,12.885V15H7v-2.12c-0.614-0.126-1.21-0.356-1.751-0.714l-1.491,1.49l-1.414-1.414l1.491-1.49C3.477,10.211,3.247,9.613,3.12,9H1V7h2.116C3.24,6.384,3.469,5.785,3.829,5.242L2.343,3.757l1.414-1.414l1.485,1.485C5.785,3.469,6.384,3.24,7,3.115V1h2v2.12c0.613,0.126,1.211,0.356,1.752,0.714l1.49-1.491l1.414,1.414l-1.49,1.492C12.523,5.79,12.754,6.387,12.88,7H15z M8,6C6.896,6,6,6.896,6,8s0.896,2,2,2s2-0.896,2-2S9.104,6,8,6z" fill-rule="evenodd"></path>
+											</svg>
+										</a>
+										<a data-ember-action="50" class="button glyph-only" title="Viewer List">
+											<svg class="svg-viewers" height="100%" version="1.1" viewBox="0 0 16 16" width="100%" x="0px" y="0px">
+												<path clip-rule="evenodd" d="M6,12.999v-2h8v2H6z M6,6.999h8v2H6V6.999z M6,2.999h8v2H6V2.999z M2,10.999h2v2H2V10.999z M2,6.999h2v2H2V6.999z M2,2.999h2v2H2V2.999z" fill-rule="evenodd"></path>
+											</svg>
+										</a>
+									</div>
+									<div class="send-chat-button">
+										<button class="button primary">
+											<span>Chat</span>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="../../build/content.js"></script>
+		<script>window.fix = require('tga/src/js/fixtures.js');</script>
+	</body>
+</html>

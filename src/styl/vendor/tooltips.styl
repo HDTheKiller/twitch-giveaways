@@ -1,0 +1,132 @@
+/*! tooltips 0.1.0 - 20th Dec 2013 | https://github.com/darsain/tooltip */
+.tgatip
+	position: absolute
+	padding: .8em 1em
+	top: 10px // Defines the spacing between tooltip and target position
+	left: auto   // reset twitch styles
+	right: auto  // reset twitch styles
+	bottom: auto // reset twitch styles
+	width: auto
+	max-width: 200px
+	color: #fff
+	background: #333
+	text-shadow: -1px -1px 0 rgba(0,0,0,.2)
+	-webkit-touch-callout: none
+	-webkit-user-select: none
+	user-select: none
+	pointer-events: none
+	z-index: 100
+
+	// kdb element
+	kbd
+		display: inline-block
+		margin-left: 5px
+		padding: 0 4px
+		color: #fff
+		background: white(.2)
+		border-top: 1px solid white(.2)
+		border-bottom: 2px solid #000
+
+	small
+		font-size: .9em
+		opacity: .6
+
+	// Arrow styles
+	&:after
+		content: ''
+		position: absolute
+		width: 10px
+		height: 10px
+		margin: -5px
+		background: inherit
+		transform: rotate(45deg)
+
+	&.top:after,
+	&.top-left:after,
+	&.top-right:after
+		bottom: 0
+
+	&.bottom:after,
+	&.bottom-left:after,
+	&.bottom-right:after
+		top: 0
+
+	&.top:after,
+	&.bottom:after
+		left: 50%
+
+	&.top-left:after,
+	&.bottom-left:after
+		right: 15px
+
+	&.top-right:after,
+	&.bottom-right:after
+		left: 15px
+
+	&.left:after,
+	&.left-top:after,
+	&.left-bottom:after
+		right: 0
+
+	&.right:after,
+	&.right-top:after,
+	&.right-bottom:after
+		left: 0
+
+	&.left:after,
+	&.right:after
+		top: 50%
+
+	&.left-top:after,
+	&.right-top:after
+		bottom: 15px
+
+	&.left-bottom:after,
+	&.right-bottom:after
+		top: 15px
+
+	// Slide
+	&.slide
+		opacity: 0
+		transition: transform 100ms ease-out
+		transition-property: transform, opacity
+
+		&.top,
+		&.top-left,
+		&.top-right
+			transform: translateY(15px)
+
+		&.bottom,
+		&.bottom-left,
+		&.bottom-right
+			transform: translateY(-15px)
+
+		&.left,
+		&.left-top,
+		&.left-bottom
+			transform: translateX(15px)
+
+		&.right,
+		&.right-top,
+		&.right-bottom
+			transform: translateX(-15px)
+
+		&.in
+			opacity: 1
+			transform: none
+			transition-duration: 60ms
+
+	// Types
+	&.light
+		color: #3a3c47
+		background: #fff
+		text-shadow: none
+
+	&.success
+		background: #8dc572
+
+	&.warning
+		background: #ddc12e
+
+	&.error
+		background: #be6464

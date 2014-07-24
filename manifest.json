@@ -1,0 +1,32 @@
+{
+  "name": "Twitch Giveaways",
+  "description": "Comfortable giveaway system for Twitch.tv channels.",
+  "version": "2.0.0",
+  "manifest_version": 2,
+  "icons": {
+    "16": "icon_16.png",
+    "48": "icon_48.png",
+    "128": "icon_128.png"
+  },
+  "permissions": [
+    "*://*.twitch.tv/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.twitch.tv/*/chat*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_end",
+      "all_frames": true
+    }
+  ],
+  "web_accessible_resources": [
+    "content.css",
+    "bitcoin.png",
+    "icons.woff",
+    "loading.gif"
+  ]
+}

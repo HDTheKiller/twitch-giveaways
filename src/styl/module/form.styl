@@ -1,0 +1,62 @@
+{namespace}
+	inputSize = 1.5em
+
+	fieldset
+		margin-top: spacing
+		border-top: 1px solid colors.lighter
+
+	legend
+		margin: 0 auto
+		padding: 0 .7em
+		line-height: 1
+		color: colors.light
+		font-style: italic
+
+	label
+		display: inline-block
+		margin: 0
+		padding: 0
+		color: colors.dark
+		vertical-align: middle
+		cursor: pointer
+
+	input
+		display: inline-block
+
+	input,
+	select,
+	textarea
+		vertical-align: middle
+		background: transparent
+		border: 1px solid colors.lighter
+		box-shadow: none // removes twitch styles
+
+		&:focus
+			border-color: colors.light
+
+	input,
+	textarea
+		&::-webkit-input-placeholder
+			color: colors.grey
+			font-style: italic
+
+		&:focus::-webkit-input-placeholder
+			color: colors.light
+
+	input[type=range]
+		-webkit-appearance: none
+		height: inputSize
+		border: 0
+
+		&::-webkit-slider-runnable-track
+			height: 1px
+			background: colors.light
+			border: 0
+
+		&::-webkit-slider-thumb
+			-webkit-appearance: none
+			size: .8em @height
+			margin-top: -@height * 0.5
+			background: colors.grey
+			border: 1px solid colors.background
+			cursor: pointer

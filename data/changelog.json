@@ -1,0 +1,29 @@
+[
+	{
+		"version": "2.0.0",
+		"date": "Jul 24, 2014",
+		"description": [
+			"First of all, I'm <strong>really</strong> sorry how long it took to get this done! The rewrite got out of hand and the extension is now a small application with tons of useful features :)",
+			"I specifically focused on making it as small and as fast as possible. If you are interested in technologies used, visit the <a href=\"https://github.com/darsain/twitch-giveaways\">extension repository</a>.",
+			"Below are some key changes that might be of interest to you:"
+		],
+		"new": [
+			"Now runs in all popped out or embedded chats, including the one in your dashboard.",
+			"Subscribers only filter.",
+			"Search bar. <em>Write \"<strong>!</strong>\" to view only unchecked people.</em>",
+			"Custom ignore list. See Configuration section."
+		],
+		"changed": [
+			"User list implements binary search sorting, and occlusion culling, which means the speed of its rendering and scrolling is the same when there is 10 or 10,000 people."
+		],
+		"removed": [
+			"No longer possible to load the whole list of people in chat. They have to write something to be registered by extension."
+		]
+	}, {
+		"version": "1.5.4",
+		"date": "Mar 28, 2014",
+		"description": [
+			"Last pre-rewrite version."
+		]
+	}
+]

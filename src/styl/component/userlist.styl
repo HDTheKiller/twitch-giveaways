@@ -1,0 +1,82 @@
+$components
+	.userlist
+		flex: 1
+		overflow: auto
+		direction: rtl
+		background: scrollshadows
+
+		ul
+			list-style: none
+			margin: 0
+			padding: 0
+			direction: ltr
+
+		li
+			display: flex
+			align-items: center
+			margin: 0
+			padding: 0
+			height: 30px
+			text-align: left
+			color: colors.light
+			cursor: pointer
+			transition: color 100ms linear
+
+			&:hover
+				background: rgba(colors.lighter, .5)
+
+		.eligible
+			display: flex
+			align-items: center
+			justify-content: center
+			size: 10px
+			margin: 0 5px 0 10px
+			border-radius: 50%
+
+			&:after
+				display: block
+				size: 8px
+				content: ''
+				padding: 1px
+				background: colors.light content-box
+				border: 1px solid transparent
+				border-radius: 50%
+				transition: all 100ms linear
+
+		.name
+			flex: 1
+			overflow: ellipsis
+
+		.query
+			color: colors.info
+			border-bottom: 1px solid colors.infoLight
+
+		.tgi
+			font-size: 1.4em
+			transition: color 100ms linear
+
+			&:last-child
+				margin-right: 4px
+
+			&.staff
+				font-size: 1.6em
+			&.subscriber
+				font-size: 1em
+
+		.checked
+			color: colors.dark
+
+			.eligible:after
+				size: 10px
+				background-color: colors.success
+				border-color: colors.success
+
+			.tgi
+				&.staff
+					color: colors.staff
+				&.admin
+					color: colors.admin
+				&.moderator
+					color: colors.moderator
+				&.subscriber
+					color: colors.subscriber

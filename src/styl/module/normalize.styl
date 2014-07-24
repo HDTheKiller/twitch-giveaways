@@ -1,0 +1,86 @@
+{namespace}
+	cursor: default
+
+	// box sizing
+	&,
+	*,
+	*:before,
+	*:after
+		box-sizing: border-box
+
+	// fonts
+	&,
+	button,
+	input,
+	textarea,
+	select
+		font-family: sans-serif
+		font-size: fontSize
+
+	// scrollbars
+	::-webkit-scrollbar
+		width: 6px
+		height: 6px
+		margin: 1px
+
+	::-webkit-scrollbar-track
+		background: transparent
+
+	::-webkit-scrollbar-thumb
+		background: colors.light
+
+		&:hover
+			background: colors.dark
+
+	// headings
+	h2, h3
+		font-family: sans-serif
+
+	// links
+	a
+		color: colors.primary
+
+		&:hover
+			color: colors.primaryLight
+			text-decoration: none
+
+	// other
+	strong
+		font-weight: bold
+
+	// ordered list
+	ol
+		list-style: none
+		margin: 0
+		padding: 0
+		counter-reset: listNo
+
+		li
+			margin: 0
+			margin-bottom: .5em
+			padding-left: 1.5em
+
+			&:last-child
+				margin-bottom: 0
+
+			&:before
+				counter-increment: listNo
+				content: counter(listNo) "."
+				display: inline-block
+				min-width: @padding-left
+				margin-left: -@min-width
+				padding-right: 5px
+				text-align: right
+
+	// reset twitch styles
+	ul
+		list-style: initial
+		margin: 0
+		padding: 0
+		border: 0
+
+		li
+			margin: 0 0 .5em
+			padding: 0
+			border: 0
+			border-bottom: 0

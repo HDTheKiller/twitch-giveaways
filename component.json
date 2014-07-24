@@ -1,0 +1,44 @@
+{
+  "name": "tga",
+  "main": "src/js/main.js",
+  "scripts": [
+    "src/js/env.js",
+    "src/js/main.js",
+    "src/js/tga.js",
+    "src/js/*/*.js"
+  ],
+  "json": [
+    "data/*.json"
+  ],
+  "dependencies": {
+    "darsain/definer": "*",
+    "darsain/e": "*",
+    "darsain/event": "*",
+    "darsain/extend": "*",
+    "darsain/tooltip": "*",
+    "darsain/tooltips": "*",
+    "darsain/sortedlist": "*",
+    "darsain/constructor-apply": "*",
+    "component/closest": "*",
+    "component/emitter": "*",
+    "component/events": "*",
+    "component/inherit": "*",
+    "component/query": "*",
+    "component/throttle": "~0.0.2",
+    "ianstormtaylor/to-sentence-case": "*",
+    "aheckmann/sliced": "*",
+    "jkroso/computed-style": "*",
+    "component/type": "*",
+    "lhorie/mithril": "~0.1.19",
+    "eivindfjeldstad/dot": "~0.1.0",
+    "component/escape-regexp": "^1.0.2"
+  },
+  "development": {
+    "scripts": [
+      "src/js/fixtures.js"
+    ],
+    "dependencies": {
+      "victorquinn/chancejs": "~0.5.6"
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{namespace} .section
+	&.about,
+	&.changelog,
+	&.config,
+		overflow-y: auto
+		padding: 0 spacing
+		background: scrollshadows
+
+		article
+			padding: spacing 0
+			font-size: fontSize - 1px
+			border-bottom: 1px solid #eee
+
+			&:last-child
+				border: 0
+
+			h1
+				font-weight: bold
+				&.version
+					font-size: 1.2em
+				&.question
+					font-size: 1em
+
+			h2
+				&.changestype
+					margin: 1em 0 .3em
+					font-size: 1em
+					font-style: italic
+					font-weight: normal
+					opacity: .5
+
+			small
+				display: inline-block
+				font-size: .8em
+				font-style: italic
+				font-weight: normal
+				opacity: .5
+
+			.version small
+				margin-left: 1em
+
+			p
+				margin: .5em 0
+
+				&:last-child
+					margin-bottom: 0

@@ -18,6 +18,14 @@ var lineToP = morpher('p', true);
 function view(ctrl) {
 	return [
 		m('.card', [
+			m('.title', {config: animate('slideintop', 100)}, [
+				m('h1', [
+					m('a', {
+						href: 'https://chrome.google.com/webstore/detail/twitch-giveaways/poohjpljfecljomfhhimjhddddlidhdd',
+						target: '_blank'
+					}, 'Twitch Giveaways')
+				])
+			]),
 			m('.lead', [
 				m('.emblem', {config: animate('slideintop')}, [m('i.tgi.tgi-tga')]),
 				m('aside.middle', [
@@ -25,22 +33,14 @@ function view(ctrl) {
 					m('.meta', {config: animate('slideinleft', 50)}, [m('em', ctrl.version.date)])
 				]),
 				m('aside.lower', [
-					m('a.action', {href: 'https://github.com/darsain/twitch-giveaways', target: '_blank', config: animate('slideinright', 100)}, [
+					m('a.action', {href: 'https://github.com/darsain/twitch-giveaways', target: '_blank', config: animate('slideinright', 150)}, [
 						m('span.name', 'Repository'),
 						m('i.tgi.tgi-github')
 					]),
-					m('a.action', {href: 'https://github.com/darsain/twitch-giveaways/issues', target: '_blank', config: animate('slideinleft', 100)}, [
-						m('i.tgi.tgi-github'),
-						m('span.name', 'Issues')
+					m('a.action', {href: 'https://twitter.com/darsain', target: '_blank', config: animate('slideinleft', 150)}, [
+						m('i.tgi.tgi-twitter'),
+						m('span.name', 'Author')
 					])
-				])
-			]),
-			m('.title', {config: animate('slideintop', 100)}, [
-				m('h1', [
-					m('a', {
-						href: 'https://chrome.google.com/webstore/detail/twitch-giveaways/poohjpljfecljomfhhimjhddddlidhdd',
-						target: '_blank'
-					}, 'Twitch Giveaways')
 				])
 			])
 		]),

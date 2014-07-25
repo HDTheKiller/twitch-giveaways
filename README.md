@@ -4,7 +4,7 @@ Comfortable giveaways system for [Twitch.tv](http://twitch.tv) channels.
 
 ## Installation
 
-- [Chrome extension](https://chrome.google.com/webstore/detail/twitch-giveaways/poohjpljfecljomfhhimjhddddlidhdd)
+- [Chrome Web Store](https://chrome.google.com/webstore/detail/twitch-giveaways/poohjpljfecljomfhhimjhddddlidhdd)
 
 ## Technologies used
 
@@ -20,7 +20,7 @@ Thanks to the efficient component(1) ecosystem and Mithril framework, the whole 
 
 ## Development environment
 
-You need to have [nodejs](http://nodejs.org/) isntalled.
+You need to have [nodejs](http://nodejs.org/) installed.
 
 Gulp:
 
@@ -28,10 +28,22 @@ Gulp:
 npm install -g gulp
 ```
 
-Build dependencies:
+Gulp tasks dependencies:
 
 ```
 npm install
+```
+
+You don't have to have [component(1)](https://github.com/component/component) installed as `gulp build` task handles everything from fetching dependencies to building them, but if you want, you need component 1.0 beta (When 1.0 is released just drop the `@1.0.0-rc5`):
+
+```
+npm install -g component@1.0.0-rc5
+```
+
+You can than pre-fetch dependencies so the first build is faster:
+
+```
+component install
 ```
 
 ## Gulp tasks
@@ -180,9 +192,7 @@ Write a set number of messages by a set number of random users.
 
 Array of random users that `fix()` & `fix.line()` accept as arguments, or pool from when arguments are omitted.
 
-You can repopulate this array with `fix.repop()`.
-
-On load, this array is populated with 100 random users.
+On load, this array is populated with 100 random users. You can repopulate it with `fix.repop()`.
 
 #### fix.repop([count])
 

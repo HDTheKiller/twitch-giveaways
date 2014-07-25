@@ -17,7 +17,8 @@ app.defaults = {
 	activeTimeout: 15, // minutes
 	lastReadChangelog: '0.0.0',
 	uncheckWinners: true,
-	keywordAntispam: 0,
+	keywordAntispam: false,
+	keywordAntispamLimit: 1,
 	displayTooltips: true,
 	ignoreList: ['jtv']
 };
@@ -136,7 +137,7 @@ function Controller(container) {
 		if (self.keyword && message.html.indexOf(self.keyword) === 0) {
 			if (self.cfg.keywordAntispam && user.keyword === self.keyword) {
 				user.keywordEntries++;
-				if (user.keywordEntries > self.cfg.keywordAntispam) user.eligible = false;
+				if (user.keywordEntries > self.cfg.keywordAntispamLimit) user.eligible = false;
 			} else {
 				user.keyword = self.keyword;
 				user.keywordEntries = 1;

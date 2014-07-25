@@ -45,19 +45,19 @@ function view(ctrl) {
 		]),
 		// keyword antispam
 		m('article.option.keyword-antispam', {config: animate('slideinleft', 50 * i++)}, [
-			m('label', {onmousedown: withKey(1, ctrl.setter('cfg.keywordAntispam').to(ctrl.cfg.keywordAntispam ? 0 : 1))}, 'Keyword antispam:'),
+			m('label', {onmousedown: withKey(1, ctrl.setter('cfg.keywordAntispam').to(!ctrl.cfg.keywordAntispam))}, 'Keyword antispam:'),
 			m('i', {
 				class: 'checkbox tgi ' + (ctrl.cfg.keywordAntispam ? 'tgi-check checked' : 'tgi-close'),
-				onmousedown: withKey(1, ctrl.setter('cfg.keywordAntispam').to(ctrl.cfg.keywordAntispam ? 0 : 1))
+				onmousedown: withKey(1, ctrl.setter('cfg.keywordAntispam').to(!ctrl.cfg.keywordAntispam))
 			}),
 			ctrl.cfg.keywordAntispam ? m('input[type=range]', {
 				min: 1,
 				max: 5,
-				oninput: m.withAttr('value', ctrl.setter('cfg.keywordAntispam').type('number')),
-				value: ctrl.cfg.keywordAntispam
+				oninput: m.withAttr('value', ctrl.setter('cfg.keywordAntispamLimit').type('number')),
+				value: ctrl.cfg.keywordAntispamLimit
 			}) : null,
-			ctrl.cfg.keywordAntispam ? m('span', ctrl.cfg.keywordAntispam) : null,
-			m('p.description', 'People who enter keyword more than specified number of times are automatically unchecked.')
+			ctrl.cfg.keywordAntispam ? m('span', ctrl.cfg.keywordAntispamLimit) : null,
+			m('p.description', 'People who enter keyword more than ' + howManyTimes(ctrl.cfg.keywordAntispamLimit) + ' are automatically unchecked.')
 		]),
 		// ignore list
 		m('article.option.ignore-list', {config: animate('slideinleft', 50 * i++)}, [
@@ -81,4 +81,13 @@ function view(ctrl) {
 			m('p.description', 'Hide tooltips if you already know what is what.')
 		]),
 	];
+}
+
+function howManyTimes(number) {
+	number = number | 0;
+	switch (number) {
+		case 1: return 'once';
+		case 2: return 'twice';
+		default: return number + ' times';
+	}
 }

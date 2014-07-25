@@ -23,8 +23,10 @@ function Controller(roll) {
 	this.messages = new Messages();
 
 	this.cleanEntries = function () {
-		for (var i = 0, user; user = self.users[i], i < self.users.length; i++)
+		for (var i = 0, user; user = self.users[i], i < self.users.length; i++) {
 			delete user.keyword;
+			delete user.keywordEntries;
+		}
 		self.updateSelectedUsers();
 	};
 

@@ -17,7 +17,7 @@ app.defaults = {
 	activeTimeout: 15, // minutes
 	lastReadChangelog: '0.0.0',
 	uncheckWinners: true,
-	keywordAntispam: false,
+	keywordAntispam: 0,
 	displayTooltips: true,
 	ignoreList: ['jtv']
 };
@@ -134,10 +134,12 @@ function Controller(container) {
 		user.lastMessage = new Date();
 		if (self.winner === user) user.messages.push(new Message(message.html));
 		if (self.keyword && message.html.indexOf(self.keyword) === 0) {
-			if (user.keyword === self.keyword && self.cfg.keywordAntispam) {
-				user.eligible = false;
+			if (self.cfg.keywordAntispam && user.keyword === self.keyword) {
+				user.keywordEntries++;
+				if (user.keywordEntries > self.cfg.keywordAntispam) user.eligible = false;
 			} else {
 				user.keyword = self.keyword;
+				user.keywordEntries = 1;
 				self.selectedUsers.insert(user);
 			}
 		}

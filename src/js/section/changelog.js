@@ -2,6 +2,8 @@ var m = require('mithril');
 var ucfirst = require('to-sentence-case');
 var animate = require('../lib/animate');
 var morpher = require('../lib/morpher');
+var extend = require('extend');
+var withKey = require('../lib/withkey');
 
 module.exports = {
 	name: 'changelog',
@@ -10,7 +12,7 @@ module.exports = {
 };
 
 function Controller() {
-	this.releases = require('tga/data/changelog.json');
+	this.releases = require('tga/data/changelog.json').map(formatRelease);
 	// mark this version as read
 	if (this.isNewVersion) {
 		this.setter('isNewVersion')(false);
@@ -18,23 +20,37 @@ function Controller() {
 	}
 }
 
+function formatRelease(release, i) {
+	release = extend(true, {}, release);
+	release.collapsed = m.prop(i > 0);
+	return release;
+}
+
 var toLI = morpher('li', true);
 var toP = morpher('p', true);
 
 function view(ctrl) {
 	return ctrl.releases.map(function (release, i) {
-		var lists = [];
-		['new', 'changed', 'fixed', 'removed'].forEach(function (name) {
-			if (!release[name]) return;
-			lists.push(m('h2.changestype.' + name, ucfirst(name)));
-			lists.push(m('ul.' + name, release[name].map(toLI)));
-		});
+		var description;
+		if (!release.collapsed()) {
+			description = [];
+			if (release.description) description = description.concat(release.description.map(toP));
+			['new', 'changed', 'fixed', 'removed'].forEach(function (name) {
+				if (!release[name]) return;
+				description.push(m('h2.changestype.' + name, ucfirst(name)));
+				description.push(m('ul.' + name, release[name].map(toLI)));
+			});
+		}
 		return m('article.release', {config: animate('slideinleft', 50 * i)}, [
-			m('h1.version', [
+			m('h1.version', {
+				onmousedown: withKey(1, release.collapsed.bind(null, !release.collapsed()))
+			}, [
 				release.version,
-				m('small', release.date)
+				m('small', release.date),
+				m('.spacer'),
+				m('i.tgi.tgi-chevron-' + (release.collapsed() ? 'down' : 'up'))
 			]),
-			!release.description ? null : release.description.map(toP)
-		].concat(lists));
+			m('.description', {class: release.collapsed() ? '' : 'fadein'}, description)
+		]);
 	});
 }

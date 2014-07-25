@@ -3,7 +3,7 @@
 		"question": "Where to report issues?",
 		"answer": [
 			"Ordered from the most to the least appropriate place:",
-			"<ol><li><a href=\"https://github.com/darsain/twitch-giveaways/issues\"><i class=\"tgi tgi-github\"></i> Twitch Giveaways issue tracker</a><br>If you don't have and don't want to have a Github account, choose some of the options below, but this is the most supported place to report issues.</li><li><a href=\"asfasfafsa\"><i class=\"tgi tgi-chrome\"></i> Chrome Webstore issues tracker</a><br> Has no notifications. I look at it a couple of times a week.</li><li><a href=\"http://twitch.tv/message/compose?to=darsain\"><i class=\"tgi tgi-twitch\"></i> Message on Twitch</a><br> Not appropriate, but it's an option :)</li><li><a href=\"https://twitter.com/darsain\"><i class=\"tgi tgi-twitter\"></i> Tweet @darsain</a><br> The worst. Not enough place to describe anything, and not guaranteed I'll read it.</li></ol>"
+			"<ol><li><a href=\"https://github.com/darsain/twitch-giveaways/issues\" target=\"_blank\"><i class=\"tgi tgi-github\"></i> Twitch Giveaways issue tracker</a><br>If you don't have and don't want to have a Github account, choose some of the options below, but this is the most supported place to report issues.</li><li><a href=\"https://chrome.google.com/webstore/support/poohjpljfecljomfhhimjhddddlidhdd\" target=\"_blank\"><i class=\"tgi tgi-chrome\"></i> Chrome Webstore issues tracker</a><br> Has no notifications. I look at it a couple of times a week.</li><li><a href=\"http://twitch.tv/message/compose?to=darsain\" target=\"_blank\"><i class=\"tgi tgi-twitch\"></i> Message on Twitch</a><br> Not appropriate, but it's an option :)</li><li><a href=\"https://twitter.com/darsain\" target=\"_blank\"><i class=\"tgi tgi-twitter\"></i> Tweet @darsain</a><br> The worst. Not enough place to describe anything, and not guaranteed I'll read it.</li></ol>"
 		]
 	},
 	{
@@ -44,6 +44,12 @@
 		"question": "Who is \"jtv\" and why is he in the Ignore list?",
 		"answer": [
 			"Jtv is a username of a Twitch bot that says \"<em>Welcome to the chat room!</em>\" among other things."
+		]
+	},
+	{
+		"question": "Why won't I appear in the list when I write something?",
+		"answer": [
+			"Everyone with Broadcaster badge (owner of the current channel) is ignored by default."
 		]
 	}
 ]

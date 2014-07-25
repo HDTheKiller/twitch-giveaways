@@ -4,7 +4,7 @@
 		"date": "Jul 24, 2014",
 		"description": [
 			"First of all, I'm <strong>really</strong> sorry how long it took to get this done! The rewrite got out of hand and the extension is now a small application with tons of useful features :)",
-			"I specifically focused on making it as small and as fast as possible. If you are interested in technologies used, visit the <a href=\"https://github.com/darsain/twitch-giveaways\">extension repository</a>.",
+			"I specifically focused on making it as small and as fast as possible. If you are interested in technologies used, visit the <a href=\"https://github.com/darsain/twitch-giveaways\" target=\"_blank\">extension repository</a>.",
 			"Below are some key changes that might be of interest to you:"
 		],
 		"new": [

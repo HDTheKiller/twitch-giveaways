@@ -1,5 +1,19 @@
 [
 	{
+		"version": "2.1.0",
+		"date": "Jul 25, 2014",
+		"new": [
+			"Keyword Antispam now has a configurable limit of entries after which the user is unchecked."
+		],
+		"changed": [
+			"Changelogs are now collapsible."
+		],
+		"fixed": [
+			"Broken links in FAQ & Changelog.",
+			"All links now open in a new window to not destroy the Giveaways session."
+		]
+	},
+	{
 		"version": "2.0.0",
 		"date": "Jul 24, 2014",
 		"description": [
@@ -10,11 +24,11 @@
 		"new": [
 			"Now runs in all popped out or embedded chats, including the one in your dashboard.",
 			"Subscribers only filter.",
-			"Search bar. <em>Write \"<strong>!</strong>\" to view only unchecked people.</em>",
+			"Search bar. <em>Start query with \"<strong>!</strong>\" to search only unchecked people.</em>",
 			"Custom ignore list. See Configuration section."
 		],
 		"changed": [
-			"User list implements binary search sorting, and occlusion culling, which means the speed of its rendering and scrolling is the same when there is 10 or 10,000 people."
+			"User list - as well as the whole app - now implements all speed optimization techniques in the universe (DOM diffing, binary search sorting, occlusion culling,...), which means the speed of rendering and scrolling is the same when there is 10 or 10,000 people. This is way more efficient than the pre-rewrite versions which had a naive implementation that took seconds to render on big channels, freezing the UI thread, and needed to be delayed. The list you see now is real time and jank-free."
 		],
 		"removed": [
 			"No longer possible to load the whole list of people in chat. They have to write something to be registered by extension."

@@ -127,6 +127,7 @@
 				margin-right: 0
 
 			&.reset
+				border-color: colors.infoLight
 				.eligible-icon
 					display: block
 					size 20px
@@ -134,9 +135,11 @@
 					background: colors.info content-box
 					border: 2px solid colors.info
 					border-radius: 50%
-				&:hover .eligible-icon
-					background-color: colors.background
-					border-color: colors.background
+				&:hover
+					border-color: colors.info
+					.eligible-icon
+						background-color: colors.background
+						border-color: colors.background
 
 			&.roll
 				flex: 1

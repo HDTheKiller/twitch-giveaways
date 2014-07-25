@@ -10,7 +10,7 @@ Comfortable giveaways system for [Twitch.tv](http://twitch.tv) channels.
 
 [component(1)](https://github.com/component/component) - Opinionated, and non wasteful package manager & builder made for the front end world.
 
-[Mithril](https://github.com/lhorie/mithril.js) - Really fast and simple virtual DOM diffing framework. More powerful than React, but 14 times smaller :)
+[Mithril](https://github.com/lhorie/mithril.js) - Really fast and simple virtual DOM diffing framework.
 
 [Gulp](https://github.com/gulpjs/gulp) - Streams oriented build system.
 

@@ -1,7 +1,7 @@
 {
   "name": "Twitch Giveaways",
   "description": "Comfortable giveaway system for Twitch.tv channels.",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "manifest_version": 2,
   "icons": {
     "16": "icon_16.png",

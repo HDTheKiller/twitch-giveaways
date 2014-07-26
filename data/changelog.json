@@ -1,5 +1,12 @@
 [
 	{
+		"version": "2.1.1",
+		"date": "Jul 26, 2014",
+		"fixed": [
+			"Some styles were getting mangled by advanced minification mode."
+		]
+	},
+	{
 		"version": "2.1.0",
 		"date": "Jul 25, 2014",
 		"new": [

@@ -72,7 +72,7 @@ function contentStylesStream() {
 		.pipe(stylus({ errors: false })).on('error', handleError)
 		.pipe(rename('content.css'))
 		.pipe(autoprefixer('last 2 Chrome versions')).on('error', handleError)
-		.pipe(gulpif(argv.production, minifyCSS()));
+		.pipe(gulpif(argv.production, minifyCSS({ noAdvanced: true })));
 }
 
 function scriptsStream() {

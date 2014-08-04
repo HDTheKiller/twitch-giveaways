@@ -14,7 +14,7 @@
   "content_scripts": [
     {
       "matches": [
-        "*://*.twitch.tv/*/chat*"
+        "*://*.twitch.tv/*"
       ],
       "js": [
         "content.js"

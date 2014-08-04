@@ -1,19 +1,19 @@
 var m = require('mithril');
 var Tooltips = require('tooltips');
 var throttle = require('throttle');
-var withKey = require('./lib/withkey');
-var Components = require('./lib/components');
-var Section = require('./lib/section');
-var setters = require('./lib/setters');
-var twitch = require('./lib/twitch');
-var chat = require('./lib/chat');
+var withKey = require('../lib/withkey');
+var Components = require('../lib/components');
+var Section = require('../lib/section');
+var setters = require('../lib/setters');
+var twitch = require('../lib/twitch');
+var chat = require('../lib/chat');
 var evt = require('event');
 var extend = require('extend');
 
 var app = module.exports = {};
 app.controller = Controller;
 app.view = view;
-app.defaults = {
+app.cfgDefaults = {
 	activeTimeout: 15, // minutes
 	lastReadChangelog: '0.0.0',
 	uncheckWinners: true,
@@ -22,8 +22,7 @@ app.defaults = {
 	displayTooltips: true,
 	ignoreList: ['jtv']
 };
-
-var options = app.options = {
+app.optionDefaults = {
 	storageName: 'twitchGiveaways',
 	minWindowWidth: 800,
 	tooltips: {
@@ -55,11 +54,11 @@ app.init = function (container) {
 };
 
 // models
-var User = require('./model/user');
-var Users = require('./model/users');
-var Message = require('./model/message');
+var User = require('../model/user');
+var Users = require('../model/users');
+var Message = require('../model/message');
 
-function Controller(container) {
+function Controller(container, options) {
 	var self = this;
 	this.app = this;
 	this.container = container;
@@ -67,8 +66,9 @@ function Controller(container) {
 	this.setter = setters(this);
 
 	// data
-	this.cfg = extend(true, {}, app.defaults,
-		localStorage[options.storageName] ? JSON.parse(localStorage[options.storageName]) : {}
+	this.options = extend(true, app.optionDefaults, options);
+	this.cfg = extend(true, {}, app.cfgDefaults,
+		localStorage[this.options.storageName] ? JSON.parse(localStorage[this.options.storageName]) : {}
 	);
 	this.version = require('tga/data/changelog.json')[0].version;
 	this.isNewVersion = this.cfg.lastReadChangelog !== this.version;
@@ -90,7 +90,7 @@ function Controller(container) {
 
 	// save config on change
 	this.setter.on('cfg', function (cfg) {
-		localStorage[options.storageName] = JSON.stringify(cfg);
+		localStorage[self.options.storageName] = JSON.stringify(cfg);
 	});
 
 	// selected users abstraction
@@ -169,17 +169,17 @@ function Controller(container) {
 
 	// components
 	this.components = new Components(this)
-		.use(require('./component/userlist'), this.selectedUsers);
+		.use(require('../component/userlist'), this.selectedUsers);
 
 	// primary section
 	this.section = new Section(this)
-		.use(require('./section/index'))
-		.use(require('./section/config'))
-		.use(require('./section/changelog'))
-		.use(require('./section/about'))
+		.use(require('../section/index'))
+		.use(require('../section/config'))
+		.use(require('../section/changelog'))
+		.use(require('../section/about'))
 
-		.use(require('./section/profile'))
-		.use(require('./section/bitcoin'));
+		.use(require('../section/profile'))
+		.use(require('../section/bitcoin'));
 
 	// this.toSection = this.section.activator.bind(this.section);
 	this.toSection = function (name, data) {
@@ -201,7 +201,7 @@ function Controller(container) {
 	makeTooltips(this.cfg.displayTooltips);
 
 	function makeTooltips(display) {
-		if (display && !self.tooltips) self.tooltips = new Tooltips(container, options.tooltips);
+		if (display && !self.tooltips) self.tooltips = new Tooltips(container, self.options.tooltips);
 		else if (!display && self.tooltips) {
 			self.tooltips.destroy();
 			self.tooltips = false;
@@ -230,11 +230,11 @@ function Controller(container) {
 	// close on window resize when window is too small
 	evt.bind(window, 'resize', throttle(function () {
 		self.windowWidth = window.innerWidth;
-		if (self.windowWidth < options.minWindowWidth) self.close();
+		if (self.windowWidth < self.options.minWindowWidth) self.close();
 	}, 100));
 
 	this.open = function () {
-		if (self.windowWidth < options.minWindowWidth) return;
+		if (self.windowWidth < self.options.minWindowWidth) return;
 		self.isOpen = true;
 		self.container.classList.add('open');
 	};

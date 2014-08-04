@@ -1,86 +1,86 @@
-/*global console */
-
-// get environment variables
-var env = require('./env');
-
-if (env.development) window.log = console.log.bind(console);
-
-// load modules
 var twitch = require('./lib/twitch');
-var channel = require('./lib/channel');
-var chat = require('./lib/chat');
 var evt = require('event');
-
-// expose globals for debugging
-window.env = env;
-window.twitch = twitch;
-window.channel = channel;
-
-// abort when channel or chat couldn't be initialized
-if (!channel) return console.error('Twitch Giveaways: Channel profile couldn\'t be loaded.');
-if (!chat) return console.error('Twitch Giveaways: Chat interface couldn\'t be loaded.');
-
-var e = require('e');
-var query = require('query');
-var Tip = require('tooltip');
-var TGA = require('./tga');
 var throttle = require('throttle');
 
-// inject tga styles
-var styles = e('link', {
-	id: 'twitch-giveaways-styles', // be nice & identify ourselves
-	rel: 'stylesheet',
-	type: 'text/css',
-	href: env.chrome ? chrome.extension.getURL('content.css') : '/build/content.css',
-	media: 'all'
-});
-query('head').appendChild(styles);
+var lastPath = window.location.pathname;
+function onLocationChange(callback) {
+	if (window.location.pathname === lastPath) return;
+	lastPath = window.location.pathname;
+	callback();
+}
 
-// initiate tga when styles loaded
-styles.onload = function () {
-	// create tga container
-	var container = e('.tga');
-	document.body.insertBefore(container, document.body.firstChild);
+require('./boot/styles').onload = function () {
+	var pageType = twitch.pageType();
+	var tga = pageType === 'chat' ? require('./boot/tga') : null;
+	var button = require('./boot/button');
+	var tip = button.tip;
+	var isFrame = window !== window.parent;
+	var runsIn = ['channel', 'chat'];
+	var tgaWindows = {};
 
-	// tga button
-	var button = e('a.tga-button.button.glyph-only', {
-		href: 'javascript:void(0)',
-		title: 'Twitch Giveaways'
-	}, e('i.tgi.tgi-gift'));
-	query('.chat-option-buttons').appendChild(button);
+	// button does different things in different situations:
+	// channel page : pops out the chat with TGA already open
+	// chat page
+	//   - window width > 800 : opens TGA
+	//   - window width < 800
+	//     - top window    : displays warning tooltip asking to resize the window
+	//     - inside iframe : pops out chat window with TGA already open
 
-	// disable button for small screens
-	var buttonTip = new Tip('', {
-		baseClass: 'tgatip',
-		effectClass: 'slide',
-		auto: 1
-	});
+	// update button state on window resize
+	evt.bind(window, 'resize', throttle(updateButtonState, 100));
+	// update button state on  location.pathname change
+	setInterval(onLocationChange.bind(null, updateButtonState), 1000);
+	// set initial button state
+	updateButtonState();
 
-	evt.bind(button, 'mouseover', buttonTip.show.bind(buttonTip, button));
-	evt.bind(button, 'mouseout', buttonTip.hide.bind(buttonTip));
-	evt.bind(window, 'resize', throttle(winResize, 100));
-
-	winResize();
-
-	function winResize() {
-		if (window.innerWidth < TGA.options.minWindowWidth) {
-			buttonTip.content('Twitch Giveaways<br><small>Window has to be at least <strong>' + TGA.options.minWindowWidth + '</strong> pixels wide.</small>');
-			buttonTip.type('error');
-			button.classList.add('disabled');
+	function updateButtonState() {
+		var pageType = twitch.pageType();
+		var channelID = window.location.pathname.match(/^\/([^\/]+)/i)[1];
+		if (~runsIn.indexOf(pageType)) button.attach();
+		if (tga && window.innerWidth < tga.options.minWindowWidth) {
+			tip.content(
+				isFrame
+					? 'Twitch Giveaways'
+						+ '<br>'
+						+ '<small>'
+							+ 'This chat is too small to accommodate the UI. '
+							+ 'Clicking this will pop it out and open Giveaways there.'
+						+ '</small>'
+					: 'Twitch Giveaways'
+						+ '<br>'
+						+ '<small>'
+							+ 'Stretch the width of the window to accommodate the UI. '
+							+ 'Has to be at least '
+							+ '<strong>' + tga.options.minWindowWidth + '</strong> '
+							+ 'pixels wide.'
+						+ '</small>'
+			);
+			tip.type('error');
+			button.classList[isFrame ? 'remove' : 'add']('disabled');
+			button.onclick = !isFrame ? tga.toggle : popout.bind(null, channelID);
 		} else {
-			buttonTip.content('Twitch Giveaways');
-			buttonTip.type();
+			tip.type();
+			tip.content(
+				tga
+				? 'Twitch Giveaways'
+				: 'Twitch Giveaways'
+					+ '<br>'
+					+ '<small>'
+						+ 'Works only in popped out or embedded chat. This will pop it out & open Giveaways.'
+					+ '</small>'
+			);
 			button.classList.remove('disabled');
+			button.onclick = tga ? tga.toggle : popout.bind(null, channelID);
 		}
 	}
 
-	// initialize tga
-	var tga = TGA.init(container);
-	button.addEventListener('click', tga.toggle);
-
-	// expose globals for debugging
-	window.tga = tga;
-
-	// automatically open giveaways in development environment
-	if (env.development) tga.open();
+	function popout(id) {
+		var loc = window.location;
+		tgaWindows[id] = tgaWindows[id] && !tgaWindows[id].closed ? tgaWindows[id] : window.open(
+			loc.origin + '/' + id + '/chat?opentga=1',
+			'twitch-giveaways-' + id,
+			'left=100,top=100,width=1000,height=600'
+		);
+		tgaWindows[id].focus();
+	}
 };

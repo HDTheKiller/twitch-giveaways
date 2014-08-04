@@ -4,7 +4,6 @@
   "scripts": [
     "src/js/env.js",
     "src/js/main.js",
-    "src/js/tga.js",
     "src/js/*/*.js"
   ],
   "json": [

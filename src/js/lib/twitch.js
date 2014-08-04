@@ -40,5 +40,12 @@ var twitch = module.exports = {
 				twitch.following(username, match[1], callback);
 			}
 		};
+	},
+	pageType: function () {
+		var path = window.location.pathname;
+		if (path.match(/^\/([^\/]+)\/chat\/?$/i))
+			return 'chat';
+		if (query('.chat-room') && path.match(/^\/[^\/]+\/?$/i))
+			return 'channel';
 	}
 };

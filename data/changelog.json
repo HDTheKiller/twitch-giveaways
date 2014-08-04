@@ -1,5 +1,15 @@
 [
 	{
+		"version": "2.2.0",
+		"date": "Aug 4, 2014",
+		"new": [
+			"Button now also in channel pages. Clicking it pops out the chat window with Giveaways already open."
+		],
+		"changed": [
+			"Tweaking styles."
+		]
+	},
+	{
 		"version": "2.1.2",
 		"date": "Jul 26, 2014",
 		"fixed": [

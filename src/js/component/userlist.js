@@ -40,13 +40,15 @@ function Controller(users, options) {
 
 	this.syncHeight = function (element, isInit, ctx) {
 		if (isInit) return;
-		var resize = throttle(updateLimit, 100);
+		var resize = throttle(function () {
+			updateLimit();
+			m.redraw();
+		}, 300);
 		window.addEventListener('resize', resize);
 		ctx.onunload = unload;
 		updateLimit();
 		function updateLimit() {
 			self.limit = Math.ceil(element.clientHeight / self.itemSize) + 1;
-			m.redraw();
 		}
 		function unload() {
 			window.removeEventListener('resize', resize);

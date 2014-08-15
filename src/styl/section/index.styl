@@ -1,10 +1,15 @@
 {namespace} .section.index
 	display: flex
-	flex-direction: column
-	align-items: stretch
+	flex-flow: column
+
+	.controls
+		flex: 1
+		background: scrollshadows
+		overflow: scroll
+		overflow-x: hidden
 
 	.block
-		margin: spacing spacing 0
+		margin: spacing
 
 	.rolltypes
 		display: flex
@@ -12,7 +17,6 @@
 		background: colors.dark
 		// removing twitch styles
 		border: 0
-		margin: 0
 
 		li
 			flex: 1
@@ -34,7 +38,13 @@
 				color: colors.dark
 				background: padding-box colors.background
 
-	.keyword-input
+	.options .option
+		margin-top: 1em
+
+		&:first-child
+			margin-top: 0
+
+	.keyword
 		display: flex
 		align-items: center
 		height: 35px
@@ -172,39 +182,3 @@
 					.spinner
 						transform: scale(1)
 						opacity: 1
-
-	.support
-		padding: 0 0 10px
-
-		.divider
-			font-size: .8em
-
-		.options
-			display: flex
-
-		a
-			flex: 1
-			display: flex
-			justify-content: center
-			align-items: center
-			height: 40px
-			margin: 0
-			font-size: 18px
-			text-decoration: none
-			transition: all 100ms ease-out
-
-		.tgi
-			margin: 0 5px 0 0
-			font-size: 30px
-
-		.bitcoin
-			color: lighten(colors.bitcoin, 20)
-			&:hover
-				color: colors.bitcoin
-				// background: colors.bitcoin
-
-		.paypal
-			color: colors.paypalLight
-			&:hover
-				color: colors.paypalDark
-				// background: colors.paypalDark

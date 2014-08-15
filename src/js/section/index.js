@@ -129,52 +129,44 @@ function view(ctrl) {
 	var i = 0;
 	return [
 		ctrl.messages.render(),
-		m('.block.type', [
-			m('ul.rolltypes', {config: animate('slideinleft', 50 * i++)}, ctrl.rolling.types.map(typeToTab, ctrl)),
-			m('section.rolltype.' + ctrl.rolling.type, tabs[ctrl.rolling.type].view(ctrl))
+		m('.controls', [
+			m('.block.groups', Object.keys(ctrl.rolling.groups).map(groupToToggle, ctrl)),
+			m('ul.block.rolltypes', {config: animate('slideinleft', 50 * i++)}, ctrl.rolling.types.map(typeToTab, ctrl)),
+			m('.block.options', [
+				tabs[ctrl.rolling.type].view(ctrl),
+				m('.option', {key: 'subscriber-luck', config: animate('slideinleft', 50 * i++)}, [
+					m('label[for=subscriber-luck]', {
+						'data-tip': 'How many times likely are subscribers to win'
+							+ '<br>'
+							+ '<small>Read FAQ for more details.</small>'
+					}, 'Subscriber luck'),
+					m('input[type=range]#subscriber-luck', {
+						min: 1,
+						max: ctrl.options.maxSubscriberLuck,
+						oninput: m.withAttr('value', ctrl.setter('rolling.subscriberLuck').type('number')),
+						value: ctrl.rolling.subscriberLuck
+					}),
+					m('span.meta', ctrl.rolling.subscriberLuck),
+					m('p.description', 'Subscribers '
+						+ (ctrl.rolling.subscriberLuck > 1
+							? 'are ' + ctrl.rolling.subscriberLuck + ' times likely to win'
+							: 'get no special treatment')
+						+ '. Read FAQ for details.')
+				]),
+			]),
+			m('.block.actions', [
+				m('.btn.btn-info.reset', {
+					config: animate('slideinleft', 50 * i++),
+					onmousedown: withKey(1, ctrl.resetEligible),
+					'data-tip': 'Reset eligible status<br><small>Checks all unchecked people.</small>'
+				}, [m('i.eligible-icon')]),
+				m('.btn.btn-success.roll' + (ctrl.rolling.active ? '.loading' : ''), {
+					config: animate('slideinleft', 50 * i++),
+					onmousedown: withKey(1, ctrl.roll)
+				}, [m('span.legend', 'Roll'), m('span.spinner')]),
+			]),
 		]),
-		m('.block.groups', Object.keys(ctrl.rolling.groups).map(groupToToggle, ctrl)),
-		m('.block.option', {config: animate('slideinleft', 50 * i++)}, [
-			m('label[for=subscriber-luck]', {
-				'data-tip': 'How many times likely are subscribers to win'
-					+ '<br>'
-					+ '<small>Read FAQ for more details.</small>'
-			}, 'Subscriber luck'),
-			m('input[type=range]#subscriber-luck', {
-				min: 1,
-				max: ctrl.options.maxSubscriberLuck,
-				oninput: m.withAttr('value', ctrl.setter('rolling.subscriberLuck').type('number')),
-				value: ctrl.rolling.subscriberLuck
-			}),
-			m('span.meta', ctrl.rolling.subscriberLuck)
-		]),
-		m('.block.actions', [
-			m('.btn.btn-info.reset', {
-				config: animate('slideinleft', 50 * i++),
-				onmousedown: withKey(1, ctrl.resetEligible),
-				'data-tip': 'Reset eligible status<br><small>Checks all unchecked people.</small>'
-			}, [m('i.eligible-icon')]),
-			m('.btn.btn-success.roll' + (ctrl.rolling.active ? '.loading' : ''), {
-				config: animate('slideinleft', 50 * i++),
-				onmousedown: withKey(1, ctrl.roll)
-			}, [m('span.legend', 'Roll'), m('span.spinner')]),
-		]),
-		m('.spacer'),
-		m('.support', [
-			m('h2.divider', 'Support the development'),
-			m('.options', [
-				m('a.paypal', {
-					href: 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AWZ2ZX5T3MF42',
-					target: '_blank',
-					config: animate('slideinleft', 50 * i++)
-				}, [m('i.tgi.tgi-paypal'), 'Paypal']),
-				m('a.bitcoin', {
-					href: '#',
-					onmousedown: ctrl.toSection('bitcoin'),
-					config: animate('slideinleft', 50 * i++)
-				}, [m('i.tgi.tgi-bitcoin'), 'Bitcoin'])
-			])
-		])
+		require('../component/support').view(ctrl, 'Support the development<br><small>Please? :)</small>')
 	];
 }
 
@@ -219,7 +211,7 @@ tabs.keyword = {
 		return 'Keyword to enter<br><small>Only people who write the keyword will get in the list.</small>';
 	},
 	view: function (ctrl) {
-		return m('.keyword-input' + (ctrl.keyword ? '.active' : ''), {config: animate('slideinleft', 50)}, [
+		return m('.keyword' + (ctrl.keyword ? '.active' : ''), {key: 'keyword', config: animate('slideinleft', 50)}, [
 			m('input.word', {
 				value: ctrl.keyword,
 				placeholder: 'Enter keyword ...',

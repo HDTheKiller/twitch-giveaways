@@ -1,34 +1,4 @@
 /**
- * Transforms an element into a custom size CSS spinner.
- */
-spinner(szs = 2em, thickness = 2px, light = false, pos = relative)
-	position: pos
-	display: inline-block
-	size: szs
-
-	&:after
-		content: ''
-		display: block
-		size: 100%
-		border: thickness solid (light ? white(.1) : black(.1))
-		border-top-color: light ? white(.5) : black(.5)
-		border-radius: 100%
-		animation: spin 500ms infinite linear
-
-/**
- * Background property extensions.
- */
-background(args...)
-	if (args[0] == 'scrollshadows')
-		background: linear-gradient(white 30%, rgba(255,255,255,0)), linear-gradient(rgba(255,255,255,0), white 70%) 0 100%, radial-gradient(farthest-side at 50% 0, rgba(0,0,0,.1), rgba(0,0,0,0)), radial-gradient(farthest-side at 50% 100%, rgba(0,0,0,.1), rgba(0,0,0,0)) 0 100%
-		background-repeat: no-repeat
-		background-color: colors.background
-		background-size: 100% 20px, 100% 20px, 100% 5px, 100% 5px
-		background-attachment: local, local, scroll, scroll
-	else
-		background: args
-
-/**
  * Position shorthands.
  *
  * Examples:
@@ -52,6 +22,21 @@ fixed(args...)
 
 relative(args...)
 	-pos('relative', args)
+
+/**
+ * Special positions.
+ */
+position(args...)
+	// Cover the parent element.
+	if (args[0] == 'cover')
+		absolute: top left
+		size: 100%
+	// Center element.
+	else if (args[0] == 'center')
+		absolute: top 50% left 50%
+		transform: translate(-50%, -50%)
+	else
+		position: args
 
 /**
  * Special shorthands for overflow property.
@@ -92,20 +77,6 @@ size(w, h = false)
 	height: h != false ? h : w
 
 /**
- * Cover the parent element.
- */
-cover()
-	absolute: top left
-	size: 100%
-
-/**
- * Center element.
- */
-center()
-	absolute: top 50% left 50%
-	transform: translate(-50%, -50%)
-
-/**
  * Render a black color with optional opacity.
  *
  * Example:
@@ -141,3 +112,33 @@ clear(type)
 			clear: both
 	else
 		clear: type
+
+/**
+ * Background property extensions.
+ */
+background(args...)
+	if (args[0] == 'scrollshadows')
+		background: linear-gradient(white 30%, rgba(255,255,255,0)), linear-gradient(rgba(255,255,255,0), white 70%) 0 100%, radial-gradient(farthest-side at 50% 0, rgba(0,0,0,.1), rgba(0,0,0,0)), radial-gradient(farthest-side at 50% 100%, rgba(0,0,0,.1), rgba(0,0,0,0)) 0 100%
+		background-repeat: no-repeat
+		background-color: colors.background
+		background-size: 100% 20px, 100% 20px, 100% 5px, 100% 5px
+		background-attachment: local, local, scroll, scroll
+	else
+		background: args
+
+/**
+ * Transforms an element into a custom size CSS spinner.
+ */
+spinner(szs = 2em, thickness = 2px, light = false, pos = relative)
+	position: pos
+	display: inline-block
+	size: szs
+
+	&:after
+		content: ''
+		display: block
+		size: 100%
+		border: thickness solid (light ? white(.1) : black(.1))
+		border-top-color: light ? white(.5) : black(.5)
+		border-radius: 100%
+		animation: spin 500ms infinite linear

@@ -44,6 +44,10 @@ function view(ctrl) {
 				])
 			])
 		]),
+		m('fieldset.begging', [
+			m('legend', {config: animate('fadein', 100)}, 'Support the development'),
+			require('../component/support').view(ctrl)
+		]),
 		m('fieldset.faq', [
 				m('legend', {config: animate('fadein', 100)}, 'Frequently Asked Questions')
 			].concat(ctrl.faqs.map(function (faq, i) {

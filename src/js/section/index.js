@@ -14,10 +14,6 @@ module.exports = {
 	view: view
 };
 
-function eligibleFilter(user) {
-	return user.eligible;
-}
-
 function Controller(roll) {
 	var self = this;
 	this.messages = new Messages();
@@ -40,8 +36,20 @@ function Controller(roll) {
 		self.rolling.active = true;
 		self.messages.clear();
 
-		var eligible = self.selectedUsers.filter(eligibleFilter);
-		if (!eligible.length) {
+		var pool = [];
+		var subLuck = self.rolling.subscriberLuck;
+		var subOnly = subLuck > self.options.maxSubscriberLuck;
+		for (var i = 0, j, user; user = self.selectedUsers[i], i < self.selectedUsers.length; i++) {
+			if (!user.eligible) continue;
+			if (subOnly) {
+				if (!user.subscriber) continue;
+				else pool.push(user);
+			} else if (user.subscriber && subLuck > 1)
+				for (j = 0; j < subLuck; j++) pool.push(user);
+			else pool.push(user);
+		}
+
+		if (!pool.length) {
 			self.messages.danger('There are no eligible users.');
 			self.rolling.active = false;
 			return;
@@ -55,7 +63,7 @@ function Controller(roll) {
 		}
 
 		// prick random winner from array of eligible users
-		var winner = eligible[Math.random() * eligible.length | 0];
+		var winner = pool[Math.random() * pool.length | 0];
 		winner.messages = [];
 		winner.rolledAt = new Date();
 		if (self.cfg.uncheckWinners) winner.eligible = false;
@@ -125,15 +133,21 @@ function view(ctrl) {
 			m('ul.rolltypes', {config: animate('slideinleft', 50 * i++)}, ctrl.rolling.types.map(typeToTab, ctrl)),
 			m('section.rolltype.' + ctrl.rolling.type, tabs[ctrl.rolling.type].view(ctrl))
 		]),
-		m('.block.groups', Object.keys(ctrl.rolling.groups).map(groupToToggle, ctrl).concat(
-			m('.btn.subscribers-only' + (ctrl.rolling.subscribersOnly ? '.checked' : ''), {
-					config: animate('slideinleft'),
-					onmousedown: withKey(1, ctrl.setter('rolling.subscribersOnly').to(!ctrl.rolling.subscribersOnly))
-				}, [
-					m('i', {class: ctrl.rolling.subscribersOnly ? 'tgi tgi-check' : 'tgi tgi-close'}),
-					'Subscribers only'
-			])
-		)),
+		m('.block.groups', Object.keys(ctrl.rolling.groups).map(groupToToggle, ctrl)),
+		m('.block.option', {config: animate('slideinleft', 50 * i++)}, [
+			m('label[for=subscriber-luck]', {
+				'data-tip': 'How many times likely are subscribers to win'
+					+ '<br>'
+					+ '<small>Read FAQ for more details.</small>'
+			}, 'Subscriber luck'),
+			m('input[type=range]#subscriber-luck', {
+				min: 1,
+				max: ctrl.options.maxSubscriberLuck,
+				oninput: m.withAttr('value', ctrl.setter('rolling.subscriberLuck').type('number')),
+				value: ctrl.rolling.subscriberLuck
+			}),
+			m('span.meta', ctrl.rolling.subscriberLuck)
+		]),
 		m('.block.actions', [
 			m('.btn.btn-info.reset', {
 				config: animate('slideinleft', 50 * i++),

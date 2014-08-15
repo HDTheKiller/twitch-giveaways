@@ -25,6 +25,7 @@ app.cfgDefaults = {
 app.optionDefaults = {
 	storageName: 'twitchGiveaways',
 	minWindowWidth: 800,
+	maxSubscriberLuck: 10,
 	tooltips: {
 		tooltip: {
 			baseClass: 'tgatip',
@@ -78,7 +79,7 @@ function Controller(container, options) {
 		active: false,
 		type: 'active',
 		types: ['active', 'keyword'],
-		subscribersOnly: false,
+		subscriberLuck: 1,
 		groups: {
 			staff: true,
 			admin: true,
@@ -107,7 +108,7 @@ function Controller(container, options) {
 
 	function selectedFilter(user) {
 		if (!self.rolling.groups[user.group]) return false;
-		if (self.rolling.subscribersOnly && !user.subscriber) return false;
+		if (self.rolling.subscriberLuck > self.options.maxSubscriberLuck && !user.subscriber) return false;
 		if (self.search && (self.search === '!' ? user.eligible : !~user.id.indexOf(self.search))) return false;
 		if (self.rolling.type === 'keyword' && self.keyword && self.keyword !== user.keyword) return false;
 		return true;
@@ -154,7 +155,8 @@ function Controller(container, options) {
 	});
 	this.users.on('remove', self.selectedUsers.remove.bind(self.selectedUsers));
 
-	this.setter.on('rolling', this.updateSelectedUsers);
+	this.setter.on('rolling.type', this.updateSelectedUsers);
+	this.setter.on('rolling.groups', this.updateSelectedUsers);
 
 	// search
 	this.search = '';

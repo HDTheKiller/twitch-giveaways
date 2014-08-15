@@ -43,6 +43,10 @@
 		&:focus::-webkit-input-placeholder
 			color: colors.light
 
+	input:focus
+		outline: 1px dashed rgba(colors.light, .5)
+		outline-offset: -2px
+
 	input[type=range]
 		-webkit-appearance: none
 		height: inputSize
@@ -60,3 +64,6 @@
 			background: colors.grey
 			border: 1px solid colors.background
 			cursor: pointer
+
+		&:focus
+			outline-offset: 2px

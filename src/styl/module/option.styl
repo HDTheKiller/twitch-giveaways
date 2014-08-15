@@ -1,0 +1,61 @@
+{namespace} .option
+	display: flex
+	flex-flow: row wrap
+	font-size: 13px
+
+	label
+		display: inline-block
+		width: 130px
+		font-weight: bold
+		margin: 0
+		padding-right: 5px
+		color: colors.grey
+		cursor: pointer
+
+	i
+		cursor: pointer
+		margin-right: 10px
+
+	input,
+	select,
+	textarea
+		flex: 1
+		margin: 0
+		padding: .5em
+
+	textarea
+		height: 120px
+		vertical-align: top
+		margin: -(spacing) 0
+		border-width: 0 0 0 1px
+		resize: none
+		outline: 0
+
+	input[type=range]
+		width: 130px
+		margin-bottom: -2px
+		padding: 0
+
+	.checkbox
+		font-size: 18px
+		color: colors.grey
+		transition: color 100ms linear
+
+		&.checked
+			color: colors.success
+
+	.meta
+		min-width: 1em
+		margin-left: 1em
+		text-align: center
+
+	.description
+		width: 100%
+		margin: 0.6em 0
+		color: colors.light
+		font-size: 0.9em
+		font-style: italic
+		font-weight: normal
+
+		&:last-child
+			margin-bottom: 0

@@ -24,19 +24,19 @@ function view(ctrl) {
 	return [
 		// active timeout
 		m('article.option.active-timeout', {config: animate('slideinleft', 50 * i++)}, [
-			m('label[for=cfg-active-timeout]', 'Active timeout:'),
+			m('label[for=cfg-active-timeout]', 'Active timeout'),
 			m('input[type=range]#cfg-active-timeout', {
 				min: 1,
 				max: 60,
 				oninput: m.withAttr('value', ctrl.setter('cfg.activeTimeout').type('number')),
 				value: ctrl.cfg.activeTimeout
 			}),
-			m('span', ctrl.cfg.activeTimeout), ' ', m('em', 'min'),
+			m('span.meta', [ctrl.cfg.activeTimeout, ' ', m('em', 'min')]),
 			m('p.description', 'Time since last message, after which users are no longer considered active and removed from the list.')
 		]),
 		// uncheck winners
 		m('article.option.uncheck-winners', {config: animate('slideinleft', 50 * i++)}, [
-			m('label', {onmousedown: withKey(1, ctrl.setter('cfg.uncheckWinners').to(!ctrl.cfg.uncheckWinners))}, 'Uncheck winners:'),
+			m('label', {onmousedown: withKey(1, ctrl.setter('cfg.uncheckWinners').to(!ctrl.cfg.uncheckWinners))}, 'Uncheck winners'),
 			m('i', {
 				class: 'checkbox tgi ' + (ctrl.cfg.uncheckWinners ? 'tgi-check checked' : 'tgi-close'),
 				onmousedown: withKey(1, ctrl.setter('cfg.uncheckWinners').to(!ctrl.cfg.uncheckWinners))
@@ -45,7 +45,7 @@ function view(ctrl) {
 		]),
 		// keyword antispam
 		m('article.option.keyword-antispam', {config: animate('slideinleft', 50 * i++)}, [
-			m('label', {onmousedown: withKey(1, ctrl.setter('cfg.keywordAntispam').to(!ctrl.cfg.keywordAntispam))}, 'Keyword antispam:'),
+			m('label', {onmousedown: withKey(1, ctrl.setter('cfg.keywordAntispam').to(!ctrl.cfg.keywordAntispam))}, 'Keyword antispam'),
 			m('i', {
 				class: 'checkbox tgi ' + (ctrl.cfg.keywordAntispam ? 'tgi-check checked' : 'tgi-close'),
 				onmousedown: withKey(1, ctrl.setter('cfg.keywordAntispam').to(!ctrl.cfg.keywordAntispam))
@@ -56,13 +56,13 @@ function view(ctrl) {
 				oninput: m.withAttr('value', ctrl.setter('cfg.keywordAntispamLimit').type('number')),
 				value: ctrl.cfg.keywordAntispamLimit
 			}) : null,
-			ctrl.cfg.keywordAntispam ? m('span', ctrl.cfg.keywordAntispamLimit) : null,
+			ctrl.cfg.keywordAntispam ? m('span.meta', ctrl.cfg.keywordAntispamLimit) : null,
 			m('p.description', 'People who enter keyword more than ' + howManyTimes(ctrl.cfg.keywordAntispamLimit) + ' are automatically unchecked.')
 		]),
 		// ignore list
 		m('article.option.ignore-list', {config: animate('slideinleft', 50 * i++)}, [
 			m('label[for=cfg-ignore-list]', [
-				'Ignore list:',
+				'Ignore list',
 				m('p.description', 'Separate usernames with new lines.')
 			]),
 			m('textarea#cfg-ignore-list', {
@@ -73,7 +73,7 @@ function view(ctrl) {
 		]),
 		// display tooltips
 		m('article.option.display-tooltips', {config: animate('slideinleft', 50 * i++)}, [
-			m('label', {onmousedown: withKey(1, ctrl.setter('cfg.displayTooltips').to(!ctrl.cfg.displayTooltips))}, 'Display tooltips:'),
+			m('label', {onmousedown: withKey(1, ctrl.setter('cfg.displayTooltips').to(!ctrl.cfg.displayTooltips))}, 'Display tooltips'),
 			m('i', {
 				class: 'checkbox tgi ' + (ctrl.cfg.displayTooltips ? 'tgi-check checked' : 'tgi-close'),
 				onmousedown: withKey(1, ctrl.setter('cfg.displayTooltips').to(!ctrl.cfg.displayTooltips))

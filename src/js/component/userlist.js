@@ -71,7 +71,7 @@ function view(ctrl) {
 				paddingTop: (start * ctrl.itemSize) + 'px'
 			}
 		}, users.slice(start, end).map(userToLi, {
-			search: ctrl.search ? new RegExp('(' + escapeRegexp(ctrl.search) + ')', 'i') : null
+			query: ctrl.searchQuery ? new RegExp('(' + escapeRegexp(ctrl.searchQuery) + ')', 'i') : null
 		}))
 	]);
 }
@@ -80,8 +80,8 @@ function userToLi(user) {
 	var icon = groups[user.group].icon;
 	return m('li', {key: user.id, class: user.eligible ? 'checked' : '', 'data-id': user.id}, [
 		m('span.eligible'),
-		m('span.name', this.search
-			? m.trust(user.name.replace(this.search, '<span class="query">$1</span>'))
+		m('span.name', this.query
+			? m.trust(user.name.replace(this.query, '<span class="query">$1</span>'))
 			: user.name),
 		user.subscriber ? m('i.tgi.tgi-star.subscriber', {'data-tip': 'Subscriber', 'data-tip-place': 'right'}) : null,
 		icon ? m('i.tgi.tgi-' + icon + '.' + user.group, {'data-tip': ucFirst(user.group), 'data-tip-place': 'right'}) : null

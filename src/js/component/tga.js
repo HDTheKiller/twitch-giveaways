@@ -34,6 +34,16 @@ app.optionDefaults = {
 		},
 		key: 'tip',
 		observe: true
+	},
+	searchFilters: {
+		'!': {
+			prop: 'eligible',
+			value: false
+		},
+		'*': {
+			prop: 'subscriber',
+			value: true
+		}
 	}
 };
 
@@ -109,7 +119,8 @@ function Controller(container, options) {
 	function selectedFilter(user) {
 		if (!self.rolling.groups[user.group]) return false;
 		if (self.rolling.subscriberLuck > self.options.maxSubscriberLuck && !user.subscriber) return false;
-		if (self.search && (self.search === '!' ? user.eligible : !~user.id.indexOf(self.search))) return false;
+		if (self.searchFilter && user[self.searchFilter.prop] !== self.searchFilter.value) return false;
+		if (self.searchQuery && !~user.id.indexOf(self.searchQuery)) return false;
 		if (self.rolling.type === 'keyword' && self.keyword && self.keyword !== user.keyword) return false;
 		return true;
 	}
@@ -160,8 +171,12 @@ function Controller(container, options) {
 
 	// search
 	this.search = '';
+	this.searchFilter = null;
+	this.searchQuery = '';
 	this.setter.on('search', function () {
 		self.search = String(self.search).trim().toLowerCase();
+		self.searchFilter = self.options.searchFilters[self.search[0]];
+		self.searchQuery = self.searchFilter ? self.search.substr(1).trim() : self.search;
 	});
 	this.setter.on('search', requestUpdateSelectedUsers);
 

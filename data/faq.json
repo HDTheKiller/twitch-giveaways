@@ -9,21 +9,35 @@
 	{
 		"question": "Who exactly am I rolling from?",
 		"answer": [
-			"You are always rolling from the list of people on the left, with the exception of those that are unchecked (i.e. not eligible to win).",
-			"If you have a search active, you are rolling only from the search results."
+			"You are always rolling from the list of people on the left, with the exception of those that are unchecked (i.e. ineligible to win).",
+			"If you have a search active, you are rolling only from the search results.",
+			"<em>Search is always real time and doesn't need to be updated by re-searching.</em>"
+		]
+	},
+	{
+		"question": "Subscriber luck, how does it work?",
+		"answer": [
+			"Subscriber luck specifies how many times are subscribers likely to win as opposed to regular users.",
+			"For example, Subscriber luck 3 is the same as if every subscriber was in the list 3 times.",
+			"You can still roll only from subscribers by using the <strong><code>*</code></strong> search filter described below."
+		]
+	},
+	{
+		"question": "Search filters?",
+		"answer": [
+			"Special characters that, when entered as a first letter of a search query, apply a special filter to results.",
+			"Available search filters are:",
+			"<strong><code>!</code></strong> - Only ineligible users.",
+			"<strong><code>*</code></strong> - Only subscribers.",
+			"For example, searching for <code><strong>*</strong></code> will find all subscribers, and searching for <code><strong>*</strong>foo</code> will find subscribers with name containing <em>foo<em>.",
+			"<em>Search is always real time and doesn't need to be updated by re-searching.</em>"
 		]
 	},
 	{
 		"question": "When are people unchecked?",
 		"answer": [
 			"People are unchecked (made not eligible to win) when:",
-			"<ul><li>You click on them in the list.</li><li>They spam keyword and <strong>Keyword antispam</strong> is enabled.</li><li>They've already won once and <strong>Uncheck winners</strong> is enabled.</li></ul>"
-		]
-	},
-	{
-		"question": "Can I display only unchecked people?",
-		"answer": [
-			"Yes. Write the exclamation mark \"<strong>!</strong>\" to the search bar to see only people that are not eligible to win."
+			"<ul><li>You manually click on them in the list.</li><li>They spam keyword and <strong>Keyword antispam</strong> is enabled.</li><li>They've already won once and <strong>Uncheck winners</strong> is enabled.</li></ul>"
 		]
 	},
 	{
@@ -50,6 +64,14 @@
 		"question": "Why won't I appear in the list when I write something?",
 		"answer": [
 			"Everyone with Broadcaster badge (owner of the current channel) is ignored by default."
+		]
+	},
+	{
+		"question": "It isn't random! Always rolls the same people!",
+		"answer": [
+			"No, the rolling <strong>is</strong> random. The only time rolling prefers some people more than others is when you increase Subscriber luck, which is explained above.",
+			"If you <em>\"feel\"</em> that it isn't random, I urge you to test it! Get 10 people in the list, and roll a couple hundred times while writing down the win distribution.",
+			"If you still don't believe me, you can always open the <a href=\"https://github.com/darsain/twitch-giveaways\" target=\"_blank\">repository</a> and check the code. Rolling is located in the <code>src/js/component/tga.js</code> file as <code>this.roll()</code> function."
 		]
 	}
 ]

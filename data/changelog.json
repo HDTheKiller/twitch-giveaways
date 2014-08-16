@@ -1,5 +1,16 @@
 [
 	{
+		"version": "2.3.0",
+		"date": "Aug 16, 2014",
+		"new": [
+			"Implemented <strong>Subscriber luck</strong>. Read FAQ for details.",
+			"More powerful <strong>search filters</strong>. Read FAQ for details."
+		],
+		"removed": [
+			"Subscriber only checkbox is no more. It became redundant as you can accomplish the same with <code><strong>*</strong></code> search filter."
+		]
+	},
+	{
 		"version": "2.2.0",
 		"date": "Aug 4, 2014",
 		"new": [

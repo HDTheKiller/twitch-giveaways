@@ -3,6 +3,7 @@ var Tooltips = require('tooltips');
 var throttle = require('throttle');
 var withKey = require('../lib/withkey');
 var Components = require('../lib/components');
+var Messages = require('../component/messages');
 var Section = require('../lib/section');
 var setters = require('../lib/setters');
 var twitch = require('../lib/twitch');
@@ -86,7 +87,6 @@ function Controller(container, options) {
 	this.users = new Users();
 	this.selectedUsers = new Users();
 	this.rolling = {
-		active: false,
 		type: 'active',
 		types: ['active', 'keyword'],
 		subscriberLuck: 1,
@@ -98,6 +98,7 @@ function Controller(container, options) {
 		}
 	};
 	this.winner = null;
+	this.messages = new Messages();
 
 	// save config on change
 	this.setter.on('cfg', function (cfg) {
@@ -184,6 +185,40 @@ function Controller(container, options) {
 	this.keyword = '';
 	this.setter.on('keyword', requestUpdateSelectedUsers);
 
+	// rolling function
+	this.roll = function () {
+		self.messages.clear();
+
+		var pool = [];
+		var subLuck = self.rolling.subscriberLuck;
+		for (var i = 0, j, user; user = self.selectedUsers[i], i < self.selectedUsers.length; i++) {
+			if (!user.eligible) continue;
+			if (user.subscriber && subLuck > 1)
+				for (j = 0; j < subLuck; j++) pool.push(user);
+			else pool.push(user);
+		}
+
+		if (!pool.length) {
+			self.messages.danger('There is none to roll from.');
+			return;
+		}
+
+		// clean current winner data
+		if (self.winner) {
+			delete self.winner.rolledAt;
+			delete self.winner.respondedAt;
+			delete self.winner.messages;
+		}
+
+		// prick random winner from array of eligible users
+		var winner = pool[Math.random() * pool.length | 0];
+		winner.messages = [];
+		winner.rolledAt = new Date();
+		if (self.cfg.uncheckWinners) winner.eligible = false;
+		self.setter('winner')(winner);
+		self.section.activate('profile', winner);
+	};
+
 	// components
 	this.components = new Components(this)
 		.use(require('../component/userlist'), this.selectedUsers);
@@ -197,6 +232,9 @@ function Controller(container, options) {
 
 		.use(require('../section/profile'))
 		.use(require('../section/bitcoin'));
+
+	// clear messages when changing sections
+	this.section.on('active', this.messages.clear.bind(this.messages));
 
 	// this.toSection = this.section.activator.bind(this.section);
 	this.toSection = function (name, data) {
@@ -325,6 +363,7 @@ function view(ctrl) {
 					onmousedown: ctrl.close, 'data-tip': 'Close Giveaways'
 				}, [m('i.tgi.tgi-close')])
 			]),
+			ctrl.messages.render(),
 			m('section.section.' + ctrl.section.active, {key: 'section-' + ctrl.section.active}, ctrl.section.render()),
 		])
 	];

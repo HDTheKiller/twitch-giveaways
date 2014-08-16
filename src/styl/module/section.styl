@@ -1,0 +1,13 @@
+{namespace} .section
+	flex: 1
+	position: relative
+	overflow-x: hidden
+	overflow-y: auto
+	background: scrollshadows
+
+	.section-spinner
+		szs = 6em
+		spinner(szs)
+		margin: szs auto 0
+		opacity: 0
+		animation: shrinkin 300ms 1 ease-out forwards

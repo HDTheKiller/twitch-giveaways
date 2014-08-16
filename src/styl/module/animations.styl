@@ -60,6 +60,14 @@
 		opacity: 1
 		transform: rotateY(0)
 
+@keyframes shrinkin
+	0%
+		opacity: 0
+		transform: scale(2)
+	100%
+		opacity: 1
+		transform: scale(1)
+
 .fadein
 	opacity: 0
 	animation: fadein 200ms 1 ease-out forwards
@@ -83,3 +91,7 @@
 .rotatein
 	opacity: 0
 	animation: rotatein 200ms 1 ease-out forwards
+
+.shrinkin
+	opacity: 0
+	animation: shrinkin 200ms 1 ease-out forwards

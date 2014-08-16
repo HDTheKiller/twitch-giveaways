@@ -31,9 +31,8 @@ var toP = morpher('p', true);
 
 function view(ctrl) {
 	return ctrl.releases.map(function (release, i) {
-		var description;
+		var description = [];
 		if (!release.collapsed()) {
-			description = [];
 			if (release.description) description = description.concat(release.description.map(toP));
 			['new', 'changed', 'fixed', 'removed'].forEach(function (name) {
 				if (!release[name]) return;
@@ -50,7 +49,7 @@ function view(ctrl) {
 				m('.spacer'),
 				m('i.tgi.tgi-chevron-' + (release.collapsed() ? 'down' : 'up'))
 			]),
-			m('.description', {class: release.collapsed() ? '' : 'fadein'}, description)
+			description.length ? m('.description.fadein', description) : null
 		]);
 	});
 }

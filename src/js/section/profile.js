@@ -1,8 +1,13 @@
 var m = require('mithril');
+var e = require('e');
 var timespan = require('../lib/timespan');
 var animate = require('../lib/animate');
+var withKey = require('../lib/withkey');
+var channel = require('../lib/channel');
+var twitch = require('../lib/twitch');
 var chat = require('../lib/chat');
 var throttle = require('throttle');
+var callbacks = require('../lib/callbacks');
 
 module.exports = {
 	name: 'profile',
@@ -13,6 +18,54 @@ module.exports = {
 function Controller(user) {
 	var self = this;
 	this.user = user;
+
+	// load profile data
+	this.loading = true;
+	var cbs = callbacks(done);
+	var followingDone = cbs();
+	var profileDone = cbs();
+
+	// following status
+	if (user.hasOwnProperty('following')) followingDone();
+	else twitch.following(user.id, channel.id).then(setFollowing, setFollowing);
+
+	// profile
+	if (user.hasOwnProperty('profile')) profileDone();
+	else twitch.profile(user.id).then(setProfile, setProfile);
+
+	function setFollowing(res) {
+		if (res)
+			if (res.channel) user.following = true;
+			else if (res.status === 404) user.following = false;
+		followingDone();
+	}
+
+	function setProfile(res) {
+		if (res && res.name === user.id) {
+			user.profile = res;
+			if (!res.logo) {
+				user.avatar = null;
+				return profileDone();
+			}
+			// load avatar image
+			var avatarLoaded = function () {
+				user.avatar = res.logo;
+				profileDone();
+			};
+			var avatarError = function () {
+				user.avatar = null;
+				profileDone();
+			};
+			e('img', {onload: avatarLoaded, onerror: avatarError, src: res.logo});
+		} else {
+			profileDone();
+		}
+	}
+
+	function done() {
+		self.loading = false;
+		m.redraw();
+	}
 
 	// messages scrolling config : keeps the scrollbar at the end when new messages arrive
 	this.messagesScrolling = function (el, isInit, ctx) {
@@ -61,6 +114,7 @@ function Controller(user) {
 }
 
 function view(ctrl) {
+	if (ctrl.loading) return m('.section-spinner');
 	var i = 0;
 	var user = ctrl.user;
 	var following = user.following;
@@ -87,7 +141,7 @@ function view(ctrl) {
 					])
 				]),
 				m('aside.lower', [
-					m('.action.sliding', {onmousedown: ctrl.toSection('index', true), config: animate('slideinright', 300)}, [
+					m('.action.sliding', {onmousedown: withKey(1, ctrl.roll), config: animate('slideinright', 300)}, [
 						m('span.name', 'Roll again'),
 						m('i.tgi.tgi-reload')
 					]),

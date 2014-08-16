@@ -1,6 +1,7 @@
 var m = require('mithril');
 var inherit = require('inherit');
 var Components = require('./components');
+var emitter = require('emitter');
 
 module.exports = Section;
 
@@ -11,6 +12,7 @@ function Section(ctx) {
 }
 
 inherit(Section, Components);
+emitter(Section.prototype);
 
 var proto = Section.prototype;
 
@@ -19,7 +21,9 @@ proto.activate = function (name, data) {
 	if (!this.has(name)) throw new Error('Section "' + name + '" doesn\'t exist.');
 	var currentActive = this.active;
 	// update active section
+	var old = this.active;
 	this.active = name;
+	this.emit('active', name, old);
 	// update data argument when passed
 	if (arguments.length > 1) this.get(name).data = data;
 	// abort when unloading already in progress

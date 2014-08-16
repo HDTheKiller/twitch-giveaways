@@ -16,7 +16,7 @@ function view(ctrl, tooltip) {
 		m('a.bitcoin', {
 			href: '#',
 			onmousedown: ctrl.toSection('bitcoin'),
-			config: animate('slideinleft', 50)
+			config: animate('slideinleft', 100)
 		}, [m('i.tgi.tgi-bitcoin'), 'Bitcoin'])
 	]);
 }

@@ -38,19 +38,15 @@ function Controller(roll) {
 
 		var pool = [];
 		var subLuck = self.rolling.subscriberLuck;
-		var subOnly = subLuck > self.options.maxSubscriberLuck;
 		for (var i = 0, j, user; user = self.selectedUsers[i], i < self.selectedUsers.length; i++) {
 			if (!user.eligible) continue;
-			if (subOnly) {
-				if (!user.subscriber) continue;
-				else pool.push(user);
-			} else if (user.subscriber && subLuck > 1)
+			if (user.subscriber && subLuck > 1)
 				for (j = 0; j < subLuck; j++) pool.push(user);
 			else pool.push(user);
 		}
 
 		if (!pool.length) {
-			self.messages.danger('There are no eligible users.');
+			self.messages.danger('There is none to roll from.');
 			self.rolling.active = false;
 			return;
 		}
@@ -135,11 +131,7 @@ function view(ctrl) {
 			m('.block.options', [
 				tabs[ctrl.rolling.type].view(ctrl),
 				m('.option', {key: 'subscriber-luck', config: animate('slideinleft', 50 * i++)}, [
-					m('label[for=subscriber-luck]', {
-						'data-tip': 'How many times likely are subscribers to win'
-							+ '<br>'
-							+ '<small>Read FAQ for more details.</small>'
-					}, 'Subscriber luck'),
+					m('label[for=subscriber-luck]', 'Subscriber luck'),
 					m('input[type=range]#subscriber-luck', {
 						min: 1,
 						max: ctrl.options.maxSubscriberLuck,
@@ -149,9 +141,9 @@ function view(ctrl) {
 					m('span.meta', ctrl.rolling.subscriberLuck),
 					m('p.description', 'Subscribers '
 						+ (ctrl.rolling.subscriberLuck > 1
-							? 'are ' + ctrl.rolling.subscriberLuck + ' times likely to win'
+							? 'are ' + ctrl.rolling.subscriberLuck + ' times more likely to win'
 							: 'get no special treatment')
-						+ '. Read FAQ for details.')
+						+ '. Details in FAQ.')
 				]),
 			]),
 			m('.block.actions', [

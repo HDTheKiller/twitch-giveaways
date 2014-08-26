@@ -2,6 +2,8 @@
 
 Comfortable giveaways system for [Twitch.tv](http://twitch.tv) channels.
 
+![Screenshot](http://i.imgur.com/tMulUND.png)
+
 ## Installation
 
 - [Chrome Web Store](https://chrome.google.com/webstore/detail/twitch-giveaways/poohjpljfecljomfhhimjhddddlidhdd)

@@ -20,7 +20,6 @@ evt.bind(button, 'mouseleave', tip.hide.bind(tip));
 button.tip = tip;
 
 button.attach = function (container) {
-	// var target = container || query('.chat-option-buttons');
 	var target = container || query('.chat-buttons-container');
 	if (target) target.appendChild(button);
 	return button;

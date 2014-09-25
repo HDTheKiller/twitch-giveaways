@@ -93,3 +93,5 @@ User.groups = {
 		icon: null
 	}
 };
+
+User.badges = ['subscriber'];

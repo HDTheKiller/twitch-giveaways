@@ -22,6 +22,7 @@
 // twitch chat
 .ember-chat-container
 	position: relative
+	width: auto
 	z-index: 2
 	transition: margin tga.transition.duration tga.transition.easing
 	box-shadow: -1px 0 0 black(.25)
@@ -30,20 +31,13 @@
 		margin-left: tga.width
 
 // match selector specificity :/
-.ember-chat .chat-interface .chat-buttons-container
+.ember-chat .chat-interface .chat-buttons-container .tga-button
 
-	.send-chat-button
-		left: 110px
+	&.disabled
+		color: colors.grey
+		cursor: default
 
-	.chat-option-buttons
-
-		.tga-button
-
-			&.disabled
-				color: colors.grey
-				cursor: default
-
-			.tgi
-				display: block
-				margin: 4px 0
-				font-size: 20px
+	.tgi
+		display: block
+		margin: 4px 0
+		font-size: 20px

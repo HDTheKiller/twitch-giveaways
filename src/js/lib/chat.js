@@ -2,7 +2,8 @@ var emitter = require('emitter');
 var query = require('query');
 var slice = require('sliced');
 var closest = require('closest');
-var chatContainer = query('.chat-room .tse-content');
+var chatContainer = query('.chat-room .chat-lines');
+var User = require('../model/user');
 
 if (!chatContainer) return false;
 
@@ -20,14 +21,14 @@ var chatObserver = new MutationObserver(function processMutations(mutations) {
 			line = closest(node, '.chat-line', true, chatContainer);
 			if (!line) continue;
 			name = query('.from', line);
+			name = name && name.textContent.trim();
 			if (!name) continue;
 			if (query('.deleted', line)) continue;
-			name = name.textContent.trim();
 			message = query('.message', line).innerHTML.trim();
 			chat.emit('message', {
 				user: {
 					name: name,
-					badges: slice(query.all('.badge', line)).map(getGroups),
+					badges: slice(query.all('.badge', line)).map(getGroups).filter(filterFalsy),
 				},
 				html: message,
 				time: new Date()
@@ -38,7 +39,12 @@ var chatObserver = new MutationObserver(function processMutations(mutations) {
 
 function getGroups(el) {
 	for (var i = 0; i < el.classList.length; i++)
-		if (el.classList[i] !== 'badge') return el.classList[i];
+		if (User.groups.hasOwnProperty(el.classList[i]) || ~User.badges.indexOf(el.classList[i]))
+			return el.classList[i];
+}
+
+function filterFalsy(group) {
+	return group;
 }
 
 // start observing mutations on chat messages

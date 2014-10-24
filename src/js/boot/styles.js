@@ -1,6 +1,5 @@
 var env = require('../env');
 var e = require('e');
-var query = require('query');
 
 var link = module.exports = e('link', {
 	id: 'twitch-giveaways-styles', // be nice & identify ourselves
@@ -11,4 +10,4 @@ var link = module.exports = e('link', {
 });
 
 // inject tga styles
-query('head').appendChild(link);
+document.body.appendChild(link);
